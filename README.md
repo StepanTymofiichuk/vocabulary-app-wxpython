@@ -1,2 +1,2 @@
 # Project Description
-This is wx pyython vocabulary app
+This is wx python vocabulary learning app

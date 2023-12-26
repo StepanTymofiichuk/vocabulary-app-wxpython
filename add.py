@@ -3,13 +3,6 @@ import sqlite3
 import traceback
 import sys
 
-# db = "SpanishStudent.db"
-# conn = sqlite3.connect(db)
-# c = conn.cursor()
-# query = "SELECT * FROM ropa"
-# c.execute(query)
-# rows = c.fetchall()
-
 class Vocabulary:
 
     def __init__(self, table: str, word: str, translation: str) -> None:
@@ -93,21 +86,9 @@ class MyFrame(wx.Frame):
         v1 = Vocabulary(table_name_add, word_add, translation_add)
         v1.print_vocabulary()
         v1.add_to_db()
-        # print(word_add)
-        # print(translation_add)
-        # table_name = table_name_add
-        # db = "ItalianStudent.db"
-        # conn = sqlite3.connect(db)
-        # c = conn.cursor()
-        # create_table_query = "CREATE TABLE IF NOT EXISTS " + table_name + " (word TEXT, translation TEXT, studied INTEGER)"
-        # c.execute(create_table_query)
-        # insert_query = "INSERT INTO " + table_name + " VALUES ('%s', '%s', '%s')" % (word_add, translation_add, 0)
-        # c.execute(insert_query)
-        # conn.commit()
-        # conn.close()
-        # self.word_entry.Clear()
-        # self.translation_entry.Clear()
-        # print("OK")
+        self.word_entry.Clear()
+        self.translation_entry.Clear()
+        print("OK")
 
 if __name__ == "__main__":
     app = Add(False)
