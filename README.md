@@ -49,6 +49,8 @@ Upon launching the application, you will be presented with the main window, whic
 5. If incorrect, your score may decrease, and you can continue to the next word.
 6. Use the "<<," "Check," "Translate," and ">>" buttons to navigate through the test.
 
+All vocabulary that is less than 100% studied from specified table will be fetched and then placed in random order in a list. User navigates between vocabulary aand enters translation. If translation is correct than: True text will be displayedd; 1 score point will be added; studied percentage will be increased by 20%; word count will be increased by 1. If translation is not correct than: False text will be displayedd; 1 score point will be substracted; studied percentage will be changed; word count will be decreased by 1.
+
 ## Additional Features
 
 ![Italian Test Application main interface](/screens/screen3.png "Italian Test Application Screen 3")
