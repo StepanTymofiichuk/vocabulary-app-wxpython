@@ -6,16 +6,23 @@ The Italian Test application is designed to help users practice and test their k
 ## Getting Started
 To run the Italian Test application, follow these steps:
 
-1. Ensure you have Python installed on your system.
+1. Ensure you have Python installed on your system:
+   ```bash
+   python --version
+   ```
 2. Create virtual environment:
    ```bash
    python -m venv .venv
    ```
-3. Install the required libraries by running the following command in your terminal or command prompt:
+3. Activate virtual environment (Windows):
+   ```bash
+   .venv\Scrippts\activate
+   ```
+4. Install the required libraries by running the following command in your terminal or command prompt:
    ```bash
    pip install -r requuirements.txt
    ```
-4. Run the script using a Python interpreter.
+5. Run the script using a Python interpreter.
    ```bash
    python test-calendario.py
    ```
@@ -27,8 +34,9 @@ Upon launching the application, you will be presented with the main window, whic
 - **English Word Display:** The Italian word to be translated is displayed at the top of the window.
 - **Translation Input:** Enter your English translation in the text box provided.
 - **Navigation Buttons:** Use the "<<," "Check," "Translate," and ">>" buttons to navigate through the test and check your answers.
-- **Score and Progress:** Track your current score, percentage studied of each word, and progress through the test.
 - **Feedback Area:** Receive feedback on the correctness of your translations in the status area.
+- **Score and Progress:** Track your current score, percentage studied of each word, and progress through the test.
+
 
 ## Test Flow
 
