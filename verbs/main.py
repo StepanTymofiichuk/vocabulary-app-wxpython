@@ -21,13 +21,30 @@ class MyFrame(wx.Frame):
 
     def __init__(self, *args, **kw):
         super(MyFrame, self).__init__(*args, **kw)
+        self.MenuBar()
         self.Search()
         self.Database()
-        self.Controls()
 
         #Attributes
         self.SetBackgroundColour("WHITE")
         self.SetIcon(wx.Icon("icon.png"))
+
+    def MenuBar(self):
+
+        menuBar = wx.MenuBar()
+        fileMenu = wx.Menu()
+        insertMenuItem = fileMenu.Append(-1, "Insert", "Insert new vocabulary")
+        exitMenuItem = fileMenu.Append(-1, "Exit", "Exit the application")
+        menuBar.Append(fileMenu, "&File")
+        self.Bind(wx.EVT_MENU, self.onInsertVocabulary, insertMenuItem)
+        self.Bind(wx.EVT_MENU, self.onExit, exitMenuItem)
+        self.SetMenuBar(menuBar)
+
+    def onExit(self, event):
+        self.Close()
+    
+    def onInsertVocabulary(self, event):
+        ...
     
     def Search(self):
             
