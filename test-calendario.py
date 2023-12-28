@@ -112,7 +112,7 @@ class MyFrame(wx.Frame):
         main_box.SetSizer(v_sizer)
 
 
-    def OnButton(self, event, a):
+    def OnButton(self, event, a) -> None:
         
         global main_text
         global translate_textCtrl
@@ -139,14 +139,14 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, lambda evt, s=s[1]: self.OnButton2(evt, s), id=check_btn.GetId())
         print(w[0], s[1])
 
-    def OnButton1(self, event, a):
+    def OnButton1(self, event, a) -> None:
         global word_num
         global status_text
         global next_button
         global prev_button
         global check_btn
 
-        check_btn.Enable()
+        check_btn.Disable()
         w = rows[a-1]
         s = rows[a-1]
         main_text.SetLabel(w[0])
@@ -156,7 +156,7 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, lambda evt, a=a-1: self.OnButton1(evt, a), id=prev_button.GetId())
 
 
-    def OnButton2(self, event, s):
+    def OnButton2(self, event, s) -> None:
         global score_text
         global count
         global main_text
@@ -196,6 +196,7 @@ class MyFrame(wx.Frame):
             update_studied(studied_add, row)
             count +=1
             score_text.SetLabel(str(count) + "p.")
+            check_btn.Disable()
         elif value != row and count > 0:
             translate_textCtrl.Clear()
             check_btn.Disable()
@@ -207,19 +208,21 @@ class MyFrame(wx.Frame):
             translate_textCtrl.Clear()
             check_btn.Disable()
             status_text.SetLabel("False")
-            status_text.SetForegroundColour("RED")        
+            status_text.SetForegroundColour("RED")    
             score_text.SetLabel("0p.")
 
         #print(count)
 
-    def OnButton3(self, event):
+    def OnButton3(self, event) -> None:
         global main_text
         global translate_text
+        global check_btn
         correct = main_text.GetLabel()
         query = "SELECT translation FROM '%s' WHERE word='%s'" % (table_name, correct)
         c.execute(query)
         row = c.fetchall()
         translate_text.SetLabel(row[0][0])
+        check_btn.Disable()
         event.Skip()
 
 if __name__ == "__main__":
