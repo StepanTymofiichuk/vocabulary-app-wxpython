@@ -16,9 +16,9 @@ To run the Italian Test application, follow these steps:
    ```
 3. Activate virtual environment (Windows):
    ```bash
-   .venv\Scrippts\activate
+   .venv\Scripts\activate
    ```
-4. Install the required libraries by running the following command in your terminal or command prompt:
+4. Install the required libraries by running the following command in your terminal:
    ```bash
    pip install -r requuirements.txt
    ```
@@ -57,6 +57,33 @@ All vocabulary that is less than 100% studied from specified table will be fetch
 
 - **Translation Button:** Click the "Translate" button to reveal the correct English translation of the current Italian word.
 - **Navigation Buttons:** Use the "<<," "Check," "Translate," and ">>" buttons to move backward, check answers, reveal translations, and move forward, respectively.
+
+## Adding New Vocabulary
+To add new vocabulary to Italian Test application, follow these steps:
+ by running the following command
+1. Ensure you have <code>ItalianStudent.db</code> file in your directory by running the following command in your terminal:
+   ```bash
+   dir
+   ```
+2. Activate virtual environment (Windows):
+   ```bash
+   .venv\Scripts\activate
+   ```
+3. Run the script using a Python interpreter.
+   ```bash
+   python add.py
+   ```
+## Application Interface
+Upon launching the application, you will be presented with the main window, which includes the following components:
+
+![Italian Test Application addind new vocabulary interface](/screens/screen4.png "Italian Test Application Screen 4")
+
+- **Table Name Input:** Table name in the db to add new vocabulary (specified table will be created unless it exists in the db).
+- **Word Input:** Enter your English word.
+- **Translation Inputs:** Enter your Italian translation.
+- **Add Button:** Click to insert new vocabulary into a table.
+
+New vocabulary will be inserted into a table with 0% studied
 
 ## Tips and Notes
 - Ensure that the application window is in focus to capture button clicks and input.
