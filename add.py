@@ -68,6 +68,8 @@ class MyFrame(wx.Frame):
         self.translation_entry.SetFont(font)
         self.btn_add = wx.Button(panel, -1, label="Add")
         self.btn_add.SetFont(font)
+        self.status = wx.StaticText(panel, label="")
+        self.status.SetFont(font)
         sizer.Add(self.table_name,0,wx.ALIGN_LEFT,0)
         sizer.Add(self.table_name_entry,0,wx.EXPAND,0)
         sizer.Add(self.word,0,wx.ALIGN_LEFT,0)
@@ -75,20 +77,25 @@ class MyFrame(wx.Frame):
         sizer.Add(self.translation,0,wx.ALIGN_LEFT,0)
         sizer.Add(self.translation_entry,0,wx.EXPAND,0)
         sizer.Add(self.btn_add,0,wx.ALIGN_LEFT,0)
+        sizer.Add(self.status,0,wx.ALIGN_CENTER,0)
         panel.SetSizer(sizer)
 
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=self.btn_add.GetId())
 
     def OnButton(self, event):
-        table_name_add = self.table_name_entry.GetValue()
-        word_add = self.word_entry.GetValue()
-        translation_add  = self.translation_entry.GetValue()
-        v1 = Vocabulary(table_name_add, word_add, translation_add)
-        v1.print_vocabulary()
-        v1.add_to_db()
-        self.word_entry.Clear()
-        self.translation_entry.Clear()
-        print("OK")
+        table_name_add: str = self.table_name_entry.GetValue()
+        word_add: str = self.word_entry.GetValue()
+        translation_add: str  = self.translation_entry.GetValue()
+        if (table_name_add != "" and word_add != "" and translation_add != ""):
+            v1 = Vocabulary(table_name_add.lower(), word_add, translation_add)
+            v1.print_vocabulary()
+            v1.add_to_db()
+            self.word_entry.Clear()
+            self.translation_entry.Clear()
+            self.status.SetLabel("Successfully added!")
+        else:
+            self.status.SetLabel("Please fill in all fields")
+
 
 if __name__ == "__main__":
     app = Add(False)
