@@ -76,7 +76,7 @@ To add new vocabulary to Italian Test application, follow these steps:
 ## Application Interface
 Upon launching the application, you will be presented with the main window, which includes the following components:
 
-![Italian Test Application addind new vocabulary interface](/screens/screen4.png "Italian Test Application Screen 4")
+![Italian Test Application adding new vocabulary interface](/screens/screen4.png "Italian Test Application Screen 4")
 
 - **Table Name Input:** Table name in the db to add new vocabulary (specified table will be created unless it exists in the db).
 - **Word Input:** Enter your English word.
