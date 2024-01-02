@@ -5,7 +5,7 @@ from random import shuffle
 db = "ItalianStudent.db"
 conn = sqlite3.connect(db)
 c = conn.cursor()
-table_name = "phrasi" 
+table_name = "frasi" 
 query = "SELECT word, studied FROM '%s' WHERE studied<100 ORDER BY random()" % table_name
 c.execute(query)
 rows = c.fetchall()
