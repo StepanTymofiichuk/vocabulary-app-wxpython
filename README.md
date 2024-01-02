@@ -1,3 +1,5 @@
+![Italian Test Application logo](icon.png "Italian Test Application logo")
+
 # User Documentation for Italian Test Application
 
 ## Introduction
