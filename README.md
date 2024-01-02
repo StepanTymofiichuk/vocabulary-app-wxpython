@@ -6,23 +6,27 @@ The Italian Test application is designed to help users practice and test their k
 ## Getting Started
 To run the Italian Test application, follow these steps:
 
-1. Ensure you have Python installed on your system:
+1. Open terminal and clone repository to your computer:
+   ```bash
+   git clone https://github.com/StepanTymofiichuk/vocabulary-app-wxpython.git
+   ```
+2. Ensure you have Python installed on your system:
    ```bash
    python --version
    ```
-2. Create virtual environment:
+3. Create virtual environment:
    ```bash
    python -m venv .venv
    ```
-3. Activate virtual environment (Windows):
+4. Activate virtual environment (Windows):
    ```bash
    .venv\Scripts\activate
    ```
-4. Install the required libraries by running the following command in your terminal:
+5. Install the required libraries by running the following command in your terminal:
    ```bash
    pip install -r requuirements.txt
    ```
-5. Run the script using a Python interpreter.
+6. Run the script using a Python interpreter.
    ```bash
    python test-calendario.py
    ```
