@@ -12,8 +12,8 @@ The program is developed using the following technologies:
         <th>BackEnd</th>
     <tr>
     <tr>
-        <td><code>wxpython</code><td>
-        <td><code>sqlite3</code><td>
+        <td><code>wxpython</code></td>
+        <td><code>sqlite3</code></td>
     <tr>
 </table>.
 
