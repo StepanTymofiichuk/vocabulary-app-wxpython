@@ -1,6 +1,7 @@
 import wx
 import sqlite3
 from random import shuffle
+import winsound
 
 db = "ItalianStudent.db"
 conn = sqlite3.connect(db)
@@ -197,11 +198,13 @@ class MyFrame(wx.Frame):
             count +=1
             score_text.SetLabel(str(count) + "p.")
             check_btn.Disable()
+            winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
         elif value != row and count > 0:
             translate_textCtrl.Clear()
             check_btn.Disable()
             status_text.SetLabel("False")
             status_text.SetForegroundColour("RED")
+            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
             count -=1
             score_text.SetLabel(str(count) + "p.")
         elif value != row and count == 0:
@@ -210,6 +213,7 @@ class MyFrame(wx.Frame):
             status_text.SetLabel("False")
             status_text.SetForegroundColour("RED")    
             score_text.SetLabel("0p.")
+            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
 
         #print(count)
 
