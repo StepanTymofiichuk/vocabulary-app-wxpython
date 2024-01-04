@@ -94,8 +94,9 @@ To add new vocabulary to Italian Test application, follow these steps:
 2. Activate virtual environment (Windows):
    ```bash
    .venv\Scripts\activate
-   ``` or
    ```
+   or
+   ```bash
    source .venv/Scripts/activate
    ```
 3. Run the script using a Python interpreter.
