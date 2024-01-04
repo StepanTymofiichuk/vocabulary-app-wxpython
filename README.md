@@ -4,13 +4,17 @@
 
 ## Introduction
 The Italian Test application is designed to help users practice and test their knowledge of Italian vocabulary. The application presents users with Italian words and requires them to input the corresponding English translation. Users receive feedback on their responses and can track their progress throughout the test 
+
+The program is developed using the following technologies:
 <table>
-<tr>
-<th>FrontEnd</th>
-<th>BackEnd</th>
-<tr>
-<tr>
-<tr>
+    <tr>
+        <th>FrontEnd</th>
+        <th>BackEnd</th>
+    <tr>
+    <tr>
+        <td><code>wxpython</code><td>
+        <td><code>sqlite3</code><td>
+    <tr>
 </table>.
 
 ## Getting Started
