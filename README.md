@@ -16,19 +16,27 @@ To run the Italian Test application, follow these steps:
    ```bash
    python --version
    ```
-3. Create virtual environment:
+3. Ensure you have Pip installed on your system:
+   ```bash
+   pip --version
+   ```
+4. Create virtual environment:
    ```bash
    python -m venv .venv
    ```
-4. Activate virtual environment (Windows):
+5. Activate virtual environment (Windows):
    ```bash
-   .venv\Scripts\activate
+   .venv\scripts\activate
    ```
-5. Install the required libraries by running the following command in your terminal:
+   For <code>bash</code> terminal use:
+   ```bash
+   source .venv/Scripts/activate
+   ```
+6. Install the required libraries by running the following command in your terminal:
    ```bash
    pip install -r requuirements.txt
    ```
-6. Run the script using a Python interpreter.
+7. Run the script using a Python interpreter.
    ```bash
    python test-calendario.py
    ```
