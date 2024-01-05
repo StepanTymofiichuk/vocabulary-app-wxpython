@@ -206,14 +206,14 @@ class MyFrame(wx.Frame):
             status_text.SetForegroundColour("RED")
             count -=1
             score_text.SetLabel(str(count) + "p.")
-            winsound.PlaySound("sounds/false", winsound.SND_FILENAME)
+            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
         elif value != row and count == 0:
             translate_textCtrl.Clear()
             check_btn.Disable()
             status_text.SetLabel("False")
             status_text.SetForegroundColour("RED")
             score_text.SetLabel("0p.")
-            winsound.PlaySound("sounds/false", winsound.SND_FILENAME)
+            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
 
         #print(count)
 
@@ -227,6 +227,7 @@ class MyFrame(wx.Frame):
         row = c.fetchall()
         translate_text.SetLabel(row[0][0])
         check_btn.Disable()
+        winsound.PlaySound("sounds/translate.wav", winsound.SND_FILENAME)
         event.Skip()
 
 if __name__ == "__main__":

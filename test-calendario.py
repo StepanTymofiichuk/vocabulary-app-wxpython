@@ -227,6 +227,7 @@ class MyFrame(wx.Frame):
         row = c.fetchall()
         translate_text.SetLabel(row[0][0])
         check_btn.Disable()
+        winsound.PlaySound("sounds/translate.wav", winsound.SND_FILENAME)
         event.Skip()
 
 if __name__ == "__main__":
