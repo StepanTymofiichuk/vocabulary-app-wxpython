@@ -2,6 +2,7 @@ import wx
 import sqlite3
 import traceback
 import sys
+import winsound
 
 class Vocabulary:
 
@@ -23,6 +24,7 @@ class Vocabulary:
             insert_query = "INSERT INTO " + self.table + " VALUES ('%s', '%s', '%s')" % (self.word, self.translation, 0)
             c.execute(insert_query)
             conn.commit()
+            winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)        
         except sqlite3.Error as er:
             print('SQLite error: %s' % (' '.join(er.args)))
             print("Exception class is: ", er.__class__)
@@ -95,6 +97,7 @@ class MyFrame(wx.Frame):
             self.status.SetLabel("Successfully added!")
         else:
             self.status.SetLabel("Please fill in all fields")
+            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
 
 
 if __name__ == "__main__":
