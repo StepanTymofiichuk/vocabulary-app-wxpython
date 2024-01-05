@@ -86,6 +86,7 @@ class MyFrame(wx.Frame):
 
     def OnButton(self, event):
         table_name_add: str = self.table_name_entry.GetValue()
+        self.btn_add.Disable()
         word_add: str = self.word_entry.GetValue()
         translation_add: str  = self.translation_entry.GetValue()
         if (table_name_add != "" and word_add != "" and translation_add != ""):
@@ -98,6 +99,7 @@ class MyFrame(wx.Frame):
         else:
             self.status.SetLabel("Please fill in all fields")
             winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+        self.btn_add.Enable()
 
 
 if __name__ == "__main__":
