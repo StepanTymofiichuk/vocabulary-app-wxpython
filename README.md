@@ -75,7 +75,10 @@ Upon launching the application, you will be presented with the main window, whic
 5. If incorrect, your score may decrease, and you can continue to the next word.
 6. Use the "<<," "Check," "Translate," and ">>" buttons to navigate through the test.
 ## Logic
-All vocabulary that is less than 100% studied from specified table will be fetched and then placed in random order in a list. User navigates between vocabulary and enters corresponding translation. If translation is correct than: <code>True</code> text will be displayed; 1 score point will be added; studied percentage will be increased by 20%; word count will be increased by 1. If translation is not correct than: <code>False</code> text will be displayedd; 1 score point will be substracted; studied percentage will not be changed; score count will be decreased by 1. When <code>Translate</code> button is clicked then <code>Check</code> button will be disabled.
+1. All vocabulary that is less than 100% studied from specified table will be fetched and then placed in random order in a list. 
+2. User navigates between vocabulary and enters corresponding translation. If translation is correct than: <code>True</code> text will be displayed; 1 score point will be added; studied percentage will be increased by 20%; word count will be increased by 1; sound effect from <code>/sounds/true.wav</code> will play. 
+3. If translation is not correct than: <code>False</code> text will be displayed; 1 score point will be substracted; studied percentage will not be changed; score count will be decreased by 1; sound effect from <code>/sounds/false.wav</code> will play. 
+4. When <code>Translate</code> button is clicked then <code>Check</code> button will be disabled.
 
 ## Additional Features
 
