@@ -23,8 +23,7 @@ class Vocabulary:
             c.execute(create_table_query)
             insert_query = "INSERT INTO " + self.table + " VALUES ('%s', '%s', '%s')" % (self.word, self.translation, 0)
             c.execute(insert_query)
-            conn.commit()
-            winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)        
+            conn.commit()        
         except sqlite3.Error as er:
             print('SQLite error: %s' % (' '.join(er.args)))
             print("Exception class is: ", er.__class__)
@@ -96,9 +95,16 @@ class MyFrame(wx.Frame):
             self.word_entry.Clear()
             self.translation_entry.Clear()
             self.status.SetLabel("Successfully added!")
+            try:
+                winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
+            except:
+                print("Sound file not found")
         else:
             self.status.SetLabel("Please fill in all fields")
-            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            try:
+                winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            except:
+                print("Sound file not found")
         self.btn_add.Enable()
 
 
