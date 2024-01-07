@@ -198,13 +198,19 @@ class MyFrame(wx.Frame):
             count +=1
             score_text.SetLabel(str(count) + "p.")
             check_btn.Disable()
-            winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
+            try:
+                winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
+            except:
+                print("Sound file not found")
         elif value != row and count > 0:
             translate_textCtrl.Clear()
             check_btn.Disable()
             status_text.SetLabel("False")
             status_text.SetForegroundColour("RED")
-            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            try:
+                winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            except:
+                print("Sound file not found")
             count -=1
             score_text.SetLabel(str(count) + "p.")
         elif value != row and count == 0:
@@ -213,7 +219,10 @@ class MyFrame(wx.Frame):
             status_text.SetLabel("False")
             status_text.SetForegroundColour("RED")    
             score_text.SetLabel("0p.")
-            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            try:
+                winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            except:
+                print("Sound file not found")
 
         #print(count)
 
@@ -227,7 +236,10 @@ class MyFrame(wx.Frame):
         row = c.fetchall()
         translate_text.SetLabel(row[0][0])
         check_btn.Disable()
-        winsound.PlaySound("sounds/translate.wav", winsound.SND_FILENAME)
+        try:
+            winsound.PlaySound("sounds/translate.wav", winsound.SND_FILENAME)
+        except:
+            print("Sound file not found")
         event.Skip()
 
 if __name__ == "__main__":
