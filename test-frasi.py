@@ -10,6 +10,7 @@ table_name = "frasi"
 query = "SELECT word, studied FROM '%s' WHERE studied<100 ORDER BY random()" % table_name
 c.execute(query)
 rows = c.fetchall()
+print(type(rows))
 shuffle(rows)
 word = rows[0][0]
 studied_number = rows[0][1]
@@ -198,7 +199,10 @@ class MyFrame(wx.Frame):
             count +=1
             score_text.SetLabel(str(count) + "p.")
             check_btn.Disable()
-            winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
+            try:
+                winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
+            except:
+                print("Sound file not found")
         elif value != row and count > 0:
             translate_textCtrl.Clear()
             check_btn.Disable()
@@ -206,7 +210,10 @@ class MyFrame(wx.Frame):
             status_text.SetForegroundColour("RED")
             count -=1
             score_text.SetLabel(str(count) + "p.")
-            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            try:
+                winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            except:
+                print("Sound file not found")
         elif value != row and count == 0:
             translate_textCtrl.Clear()
             check_btn.Disable()
@@ -227,7 +234,10 @@ class MyFrame(wx.Frame):
         row = c.fetchall()
         translate_text.SetLabel(row[0][0])
         check_btn.Disable()
-        winsound.PlaySound("sounds/translate.wav", winsound.SND_FILENAME)
+        try:
+            winsound.PlaySound("sounds/translate.wav", winsound.SND_FILENAME)
+        except:
+            print("Sound file not found")
         event.Skip()
 
 if __name__ == "__main__":
