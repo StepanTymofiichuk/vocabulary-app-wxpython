@@ -15,7 +15,8 @@ The program is developed using the following technologies:
         <td><code>wxpython</code></td>
         <td><code>sqlite3</code></td>
     <tr>
-</table>.
+</table>
+<code>wxpython</code> is used for building User Interface. <code>sqlite3</code> is used for storing vocabulary.
 
 ## Getting Started
 To run the Italian Test application, follow these steps:
@@ -106,7 +107,7 @@ To add new vocabulary to Italian Test application, follow these steps:
    ```bash
    python add.py
    ```
-## Application Interface
+## User Interface
 Upon launching the application, you will be presented with the main window, which includes the following components:
 
 ![Italian Test Application adding new vocabulary interface](/screens/screen4.png "Italian Test Application Screen 4")
@@ -115,8 +116,12 @@ Upon launching the application, you will be presented with the main window, whic
 - **Word Input:** Enter your English word.
 - **Translation Inputs:** Enter your Italian translation.
 - **Add Button:** Click to insert new vocabulary into a table.
-
-New vocabulary will be inserted into a table with 0% studied
+## Logic
+1. User enters db name to add new vocabulary.
+2. User enters a English word.
+3. User enters Italian translation.
+4. User clicks Add then new vocabulary will be inserted into a table with 0% studied; sound from <code>sounds/true.wac</code> will play; success message will display; button Add will be disabled.
+5. If one of the fields is empty then sound from <code>sounds/false.wav</code> will play; error message will display.
 
 ## Tips and Notes
 - Ensure that the application window is in focus to capture button clicks and input.
