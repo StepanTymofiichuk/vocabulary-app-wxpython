@@ -83,9 +83,9 @@ class MyFrame(wx.Frame):
         prev_button = wx.Button(main_box, -1, label="<<")
         prev_button.Disable()
         global check_btn
-        check_btn = wx.Button(main_box, -1, label="Check")
+        check_btn = wx.Button(main_box, -1, label="Controllare")
         check_btn.Enable()
-        translate_btn = wx.Button(main_box, -1, label="Translate")
+        translate_btn = wx.Button(main_box, -1, label="Tradurre")
         global next_button
         next_button = wx.Button(main_box, -1, label=">>")
         prev_button.SetFont(font)
