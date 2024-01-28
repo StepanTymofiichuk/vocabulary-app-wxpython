@@ -10,8 +10,6 @@ table_name = "padrenostro"
 query = "SELECT word, studied FROM '%s' " % table_name
 c.execute(query)
 rows = c.fetchall()
-print(type(rows))
-shuffle(rows)
 word = rows[0][0]
 studied_number = rows[0][1]
 print(word, studied_number)
