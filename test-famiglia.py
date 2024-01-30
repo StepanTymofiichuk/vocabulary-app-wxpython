@@ -10,11 +10,13 @@ table_name = "famiglia"
 query = "SELECT word, studied FROM '%s' WHERE studied<100 ORDER BY random()" % table_name
 c.execute(query)
 rows = c.fetchall()
-print(type(rows))
+print(rows)
 shuffle(rows)
 word = rows[0][0]
 studied_number = rows[0][1]
 print(word, studied_number)
+first_round: list = []
+second_round: list = []
 
 class Test(wx.App):
 
@@ -199,6 +201,9 @@ class MyFrame(wx.Frame):
             count +=1
             score_text.SetLabel(str(count) + "p.")
             check_btn.Disable()
+            my_tuple: tuple = (value)
+            second_round.append(my_tuple)
+            print(second_round)
             try:
                 winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
             except:
@@ -210,6 +215,9 @@ class MyFrame(wx.Frame):
             status_text.SetForegroundColour("RED")
             count -=1
             score_text.SetLabel(str(count) + "p.")
+            my_tuple1: tuple = (row)
+            first_round.append(my_tuple1)
+            print(first_round)
             try:
                 winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
             except:
@@ -221,6 +229,9 @@ class MyFrame(wx.Frame):
             status_text.SetForegroundColour("RED")
             score_text.SetLabel("0p.")
             winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+            my_tuple2: tuple = (row)
+            first_round.append(my_tuple2)
+            print(first_round)
 
         #print(count)
 
