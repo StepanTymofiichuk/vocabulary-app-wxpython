@@ -14,6 +14,7 @@ class Vocabulary:
     def print_vocabulary(self):
         print(f"T: {self.table}, W: {self.word}, T: {self.translation}")
 
+
     def add_to_db(self):
         db = "ItalianStudent.db"
         conn = sqlite3.connect(db)
