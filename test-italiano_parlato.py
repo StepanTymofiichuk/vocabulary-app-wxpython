@@ -51,6 +51,7 @@ class MyFrame(wx.Frame):
         font = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
         main_text.SetFont(font)
         font1 = wx.Font(wx.FontInfo(12).FaceName("Helvetica"))
+        font2 = wx.Font(wx.FontInfo(10).FaceName("Helvetica"))
         global translate_text
         translate_text = wx.StaticText(main_box, style=wx.ALIGN_CENTER_HORIZONTAL|wx.ELLIPSIZE_START)
         translate_text.SetFont(font1)
@@ -88,6 +89,15 @@ class MyFrame(wx.Frame):
         global status_text
         status_text = wx.StaticText(main_box,style=wx.ALIGN_CENTER_HORIZONTAL|wx.ELLIPSIZE_START)
         status_text.SetFont(font1)
+
+        score_label = wx.StaticText(main_box, label="Punteggio:")
+        score_label.SetFont(font2)
+        total_studied_label = wx.StaticText(main_box, label="Parola studiata:")
+        total_studied_label.SetFont(font2)
+        total_words_label = wx.StaticText(main_box, label="Parole totali:")
+        total_words_label.SetFont(font2)
+        total_words_studied_label = wx.StaticText(main_box, label="Parole totali studiate:")
+        total_words_studied_label.SetFont(font2)
         
         
         global prev_button
@@ -120,11 +130,11 @@ class MyFrame(wx.Frame):
         h_sizer1.Add(studied)
         h_sizer1.Add(word_num)
         h_sizer1.Add(studied_num)
-        h_sizer2.Add(wx.StaticText(main_box, label="Punteggio:"))
-        h_sizer2.Add(wx.StaticText(main_box, label="Parola studiata:"))
-        h_sizer2.Add(wx.StaticText(main_box, label="Parole totali:"))
-        h_sizer2.Add(wx.StaticText(main_box, label="Parole totali studiate:"))
-        v_sizer.Add(h_sizer, 0, wx.EXPAND, 0)
+        h_sizer2.Add(score_label)
+        h_sizer2.Add(total_studied_label)
+        h_sizer2.Add(total_words_label)
+        h_sizer2.Add(total_words_studied_label)
+        v_sizer.Add(h_sizer, 0, wx.EXPAND, 10, 10)
         v_sizer.Add(sizer, 0, wx.EXPAND, 0)
         v_sizer.Add(h_sizer2, 0, wx.EXPAND)
         v_sizer.Add(h_sizer1,0, wx.EXPAND)
