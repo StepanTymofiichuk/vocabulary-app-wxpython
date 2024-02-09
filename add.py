@@ -95,13 +95,13 @@ class MyFrame(wx.Frame):
             v1.add_to_db()
             self.word_entry.Clear()
             self.translation_entry.Clear()
-            self.status.SetLabel("Successfully added!")
+            self.status.SetLabel("Inserito con succeso!")
             try:
                 winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
             except:
                 print("Sound file not found")
         else:
-            self.status.SetLabel("Please fill in all fields")
+            self.status.SetLabel("Si prega di compilare tutti i campi!")
             try:
                 winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
             except:
