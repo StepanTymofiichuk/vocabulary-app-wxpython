@@ -3,12 +3,12 @@ import sqlite3
 from random import shuffle
 import winsound
 
-db = "ItalianStudent.db"
+db = "C:\\Users\\bussi\\Documents\\vocabulary-app-wxpython\\ItalianStudent.db"
 conn = sqlite3.connect(db)
 c = conn.cursor()
 c1 = conn.cursor()
 table_name = "italiano_parlato" 
-query = "SELECT word, studied FROM '%s' WHERE studied<100 ORDER BY random()" % table_name
+query = "SELECT word, studied FROM '%s' WHERE studied BETWEEN 20 AND 40 ORDER BY random()" % table_name
 select_avg_query = "SELECT AVG(studied) FROM '%s' " % table_name
 c.execute(query)
 c1.execute(select_avg_query)

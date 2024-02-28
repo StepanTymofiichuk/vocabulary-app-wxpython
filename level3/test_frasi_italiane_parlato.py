@@ -3,25 +3,6 @@ import sqlite3
 from random import shuffle
 import winsound
 
-db = "ItalianStudent.db"
-conn = sqlite3.connect(db)
-c = conn.cursor()
-c1 = conn.cursor()
-table_name = "italiano_parlato" 
-query = "SELECT word, studied FROM '%s' WHERE studied<100 ORDER BY random()" % table_name
-select_avg_query = "SELECT AVG(studied) FROM '%s' " % table_name
-c.execute(query)
-c1.execute(select_avg_query)
-rows = c.fetchall()
-avg_studied = c1.fetchone()
-avg_num = avg_studied[0]
-print(type(rows))
-print(round(avg_num, 2))
-shuffle(rows)
-word = rows[0][0]
-studied_number = rows[0][1]
-print(word, studied_number)
-
 class Test(wx.App):
 
     def OnInit(self):
@@ -48,10 +29,10 @@ class MyFrame(wx.Frame):
         v_sizer = wx.BoxSizer(wx.VERTICAL)
         global main_text
         main_text = wx.StaticText(main_box, label=str(word), style=wx.ALIGN_CENTER_HORIZONTAL|wx.ELLIPSIZE_START)
-        font = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
+        font = wx.Font(wx.FontInfo(20).FaceName("Helvetica"))
         main_text.SetFont(font)
-        font1 = wx.Font(wx.FontInfo(12).FaceName("Helvetica"))
-        font2 = wx.Font(wx.FontInfo(10).FaceName("Helvetica"))
+        font1 = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
+        font2 = wx.Font(wx.FontInfo(14).FaceName("Helvetica"))
         global translate_text
         translate_text = wx.StaticText(main_box, style=wx.ALIGN_CENTER_HORIZONTAL|wx.ELLIPSIZE_START)
         translate_text.SetFont(font1)
@@ -218,7 +199,7 @@ class MyFrame(wx.Frame):
         row = result[0][0]
         if value == row :
             translate_textCtrl.Clear()
-            status_text.SetLabel("Giiusto")
+            status_text.SetLabel("Giusto")
             status_text.SetForegroundColour("GREEN")
             studied_add = int(s) + 20
             studied.SetLabel(str(studied_add) + "%")
@@ -268,5 +249,26 @@ class MyFrame(wx.Frame):
         event.Skip()
 
 if __name__ == "__main__":
-    app = Test(False)
-    app.MainLoop()
+    try:
+        db = "C:\\Users\\bussi\\Documents\\vocabulary-app-wxpython\\ItalianStudent.db"
+        conn = sqlite3.connect(db)
+        c = conn.cursor()
+        c1 = conn.cursor()
+        table_name = "frasi_italiane_parlato" 
+        query = "SELECT word, studied FROM '%s' WHERE studied BETWEEN 60 AND 80 ORDER BY random()" % table_name
+        select_avg_query = "SELECT AVG(studied) FROM '%s' " % table_name
+        c.execute(query)
+        c1.execute(select_avg_query)
+        rows = c.fetchall()
+        avg_studied = c1.fetchone()
+        avg_num = avg_studied[0]
+        #print(type(rows))
+        #print(round(avg_num, 2))
+        shuffle(rows)
+        word = rows[0][0]
+        studied_number = rows[0][1]
+        #print(word, studied_number)
+        app = Test(False)
+        app.MainLoop()
+    except:
+        print("No vocabulary for this level!")

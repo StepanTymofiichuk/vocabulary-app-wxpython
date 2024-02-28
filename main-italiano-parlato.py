@@ -6,7 +6,7 @@ python_bin = ".venv\\Scripts\\python"
 db = "ItalianStudent.db"
 conn = sqlite3.connect(db)
 c = conn.cursor()
-query = "SELECT word, translation, studied FROM time UNION SELECT word, translation, studied FROM calendario"
+query = "SELECT word, translation, studied FROM italiano_parlato UNION SELECT word, translation, studied FROM frasi_italiane_parlato"
 c.execute(query)
 rows = c.fetchall()
 
@@ -23,6 +23,7 @@ class MyFrame(wx.Frame):
     def __init__(self, *args, **kw):
         super(MyFrame, self).__init__(*args, **kw)
         self.MenuBar()
+        
         self.Search()
         self.Database()
         self.Controls()
@@ -35,10 +36,58 @@ class MyFrame(wx.Frame):
 
         menuBar = wx.MenuBar()
         fileMenu = wx.Menu()
+        level1_menu = wx.Menu()
+        level2_menu = wx.Menu()
+        level3_menu = wx.Menu()
         exitMenuItem = fileMenu.Append(-1, "Exit", "Exit the application")
+        level1_menu_item = level1_menu.Append(-1, "italiano_parlato", "test italiano parlato")
+        level1_menu_item1 = level1_menu.Append(-1, "frasi_italiano_parlato", "test italiano parlato")
+        level2_menu_item = level2_menu.Append(-1, "italiano_parlato", "test italiano parlato")
+        level2_menu_item1 = level2_menu.Append(-1, "frasi_italiano_parlato", "test italiano parlato")
+        level3_menu_item = level3_menu.Append(-1, "italiano_parlato", "test italiano parlato")
+        level3_menu_item1 = level3_menu.Append(-1, "frasi_italiano_parlato", "test italiano parlato")
         menuBar.Append(fileMenu, "&File")
+        menuBar.Append(level1_menu, "&Level 1")
+        menuBar.Append(level2_menu, "&Level 2")
+        menuBar.Append(level3_menu, "&Level 3")
         self.Bind(wx.EVT_MENU, self.onExit, exitMenuItem)
+        self.Bind(wx.EVT_MENU, self.onTestLevel1, level1_menu_item)
+        self.Bind(wx.EVT_MENU, self.onTestLevel1_1, level1_menu_item1)
+        self.Bind(wx.EVT_MENU, self.onTestLevel2, level2_menu_item)
+        self.Bind(wx.EVT_MENU, self.onTestLevel2_1, level2_menu_item1)
+        self.Bind(wx.EVT_MENU, self.onTestLevel3, level3_menu_item)
+        self.Bind(wx.EVT_MENU, self.onTestLevel3_1, level3_menu_item1)
         self.SetMenuBar(menuBar)
+
+    def onTestLevel1(self, event):
+        print("Test Level 1 italiano parlato")
+        script_file = "level1\\test-italiano_parlato.py"
+        Popen([python_bin, script_file])
+
+    def onTestLevel1_1(self, event):
+        print("Test Level 1 frasi italiano parlato")
+        script_file = "level1\\test_frasi_italiane_parlato.py"
+        Popen([python_bin, script_file])
+
+    def onTestLevel2(self, event):
+        print("Test Level 2 italiano parlato")
+        script_file = "level2\\test-italiano_parlato.py"
+        Popen([python_bin, script_file])
+
+    def onTestLevel2_1(self, event):
+        print("Test Level 2 frasi italiano parlato")
+        script_file = "level2\\test_frasi_italiane_parlato.py"
+        Popen([python_bin, script_file])
+
+    def onTestLevel3(self, event):
+        print("Test Level 3 italiano parlato")
+        script_file = "level3\\test-italiano_parlato.py"
+        Popen([python_bin, script_file])
+
+    def onTestLevel3_1(self, event):
+        print("Test Level 3 frasi italiano parlato")
+        script_file = "level3\\test_frasi_italiane_parlato.py"
+        Popen([python_bin, script_file])
 
     def onExit(self, event):
         self.Close()
@@ -75,36 +124,18 @@ class MyFrame(wx.Frame):
 
         controls_box = wx.StaticBox(self, label="Controls", size=(390,50), pos=(10,450))
         add_to_db_button = wx.Button(controls_box, -1, label="Add To db", pos=(10,18))
-        start_time_button = wx.Button(controls_box, -1, label="Time Test", pos=(85,18))
-        start_calendario_button = wx.Button(controls_box, -1, label="Calendario Test", pos=(155,18))
-        start_numeri_button = wx.Button(controls_box, -1, label="Numeri Test", pos=(250,18))
         self.Bind(wx.EVT_BUTTON, self.AddToDbButton, id=add_to_db_button.GetId())
-        self.Bind(wx.EVT_BUTTON, self.StartTimeTestButton, id=start_time_button.GetId())
-        self.Bind(wx.EVT_BUTTON, self.StartCalendarioTestButton, id=start_calendario_button.GetId())
-        self.Bind(wx.EVT_BUTTON, self.StartNumeriTestButton, id=start_numeri_button.GetId())
 
     def AddToDbButton(self, event):
         print("Clicked")
-        Popen("python add.py")
-
-    def StartTimeTestButton(self, event):
-        print("Clicked")
-        script_file = "test-time.py"
+        script_file = "add.py"
         Popen([python_bin, script_file])
-
-    def StartCalendarioTestButton(self, event):
-        print("Clicked")
-        Popen("python test-calendario.py")
-
-    def StartNumeriTestButton(self, event):
-        print("Clicked")
-        Popen("python test-numeri.py")
 
     def OnButton(self, event):
         global search_textCtrl
         global db_listControl
         value = search_textCtrl.GetValue()
-        query = "SELECT * FROM time WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%'  UNION SELECT * FROM calendario WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%' "
+        query = "SELECT * FROM italiano_parlato WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%'  UNION SELECT * FROM frasi_italiane_parlato WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%' "
         c.execute(query)
         rows = c.fetchall()
         db_listControl.DeleteAllItems()

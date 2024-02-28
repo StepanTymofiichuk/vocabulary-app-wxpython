@@ -3,24 +3,7 @@ import sqlite3
 from random import shuffle
 import winsound
 
-db = "ItalianStudent.db"
-conn = sqlite3.connect(db)
-c = conn.cursor()
-c1 = conn.cursor()
-table_name = "italiano_parlato" 
-query = "SELECT word, studied FROM '%s' WHERE studied<100 ORDER BY random()" % table_name
-select_avg_query = "SELECT AVG(studied) FROM '%s' " % table_name
-c.execute(query)
-c1.execute(select_avg_query)
-rows = c.fetchall()
-avg_studied = c1.fetchone()
-avg_num = avg_studied[0]
-print(type(rows))
-print(round(avg_num, 2))
-shuffle(rows)
-word = rows[0][0]
-studied_number = rows[0][1]
-print(word, studied_number)
+
 
 class Test(wx.App):
 
@@ -268,5 +251,26 @@ class MyFrame(wx.Frame):
         event.Skip()
 
 if __name__ == "__main__":
-    app = Test(False)
-    app.MainLoop()
+    try:
+        db = "C:\\Users\\bussi\\Documents\\vocabulary-app-wxpython\\ItalianStudent.db"
+        conn = sqlite3.connect(db)
+        c = conn.cursor()
+        c1 = conn.cursor()
+        table_name = "italiano_parlato" 
+        query = "SELECT word, studied FROM '%s' WHERE studied<20 ORDER BY random()" % table_name
+        select_avg_query = "SELECT AVG(studied) FROM '%s' " % table_name
+        c.execute(query)
+        c1.execute(select_avg_query)
+        rows = c.fetchall()
+        avg_studied = c1.fetchone()
+        avg_num = avg_studied[0]
+        #print(type(rows))
+        #print(round(avg_num, 2))
+        shuffle(rows)
+        word = rows[0][0]
+        studied_number = rows[0][1]
+        #print(word, studied_number)
+        app = Test(False)
+        app.MainLoop()
+    except:
+        print("Congratulazioni! Hai completato il livello 1!")
