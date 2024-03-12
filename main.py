@@ -85,7 +85,8 @@ class MyFrame(wx.Frame):
 
     def AddToDbButton(self, event):
         print("Clicked")
-        Popen("python add.py")
+        script_file = "add.py"
+        Popen([python_bin, script_file])
 
     def StartTimeTestButton(self, event):
         print("Clicked")
@@ -94,11 +95,13 @@ class MyFrame(wx.Frame):
 
     def StartCalendarioTestButton(self, event):
         print("Clicked")
-        Popen("python test-calendario.py")
+        script_file = "test-calendario.py"
+        Popen([python_bin, script_file])
 
     def StartNumeriTestButton(self, event):
         print("Clicked")
-        Popen("python test-numeri.py")
+        script_file = "test-numeri.py"
+        Popen([python_bin, script_file])
 
     def OnButton(self, event):
         global search_textCtrl
