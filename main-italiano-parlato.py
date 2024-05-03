@@ -13,7 +13,7 @@ rows = c.fetchall()
 class MyApp(wx.App):
 
     def OnInit(self):
-        self.frame = MyFrame(None, title="VocabularyTest", size=(450,580))
+        self.frame = MyFrame(None, title="Il Testo Del Vocabulario", size=(450,580))
         self.SetTopWindow(self.frame)
         self.frame.Show()
         return True 
@@ -47,9 +47,9 @@ class MyFrame(wx.Frame):
         level3_menu_item = level3_menu.Append(-1, "italiano_parlato", "test italiano parlato")
         level3_menu_item1 = level3_menu.Append(-1, "frasi_italiano_parlato", "test italiano parlato")
         menuBar.Append(fileMenu, "&File")
-        menuBar.Append(level1_menu, "&Level 1")
-        menuBar.Append(level2_menu, "&Level 2")
-        menuBar.Append(level3_menu, "&Level 3")
+        menuBar.Append(level1_menu, "&Livello 1")
+        menuBar.Append(level2_menu, "&Livello 2")
+        menuBar.Append(level3_menu, "&Livello 3")
         self.Bind(wx.EVT_MENU, self.onExit, exitMenuItem)
         self.Bind(wx.EVT_MENU, self.onTestLevel1, level1_menu_item)
         self.Bind(wx.EVT_MENU, self.onTestLevel1_1, level1_menu_item1)
@@ -123,7 +123,7 @@ class MyFrame(wx.Frame):
     def Controls(self):
 
         controls_box = wx.StaticBox(self, label="Controls", size=(390,50), pos=(10,450))
-        add_to_db_button = wx.Button(controls_box, -1, label="Add To db", pos=(10,18))
+        add_to_db_button = wx.Button(controls_box, -1, label="Inserire Al db", pos=(10,18))
         self.Bind(wx.EVT_BUTTON, self.AddToDbButton, id=add_to_db_button.GetId())
 
     def AddToDbButton(self, event):
