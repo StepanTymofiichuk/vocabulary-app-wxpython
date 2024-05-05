@@ -13,7 +13,7 @@ class Vocabulary:
         print(f"T: {self.table}")
 
 
-    def add_to_db(self):
+    def clear_db(self):
         db = "ItalianStudent.db"
         conn = sqlite3.connect(db)
         c = conn.cursor()
@@ -30,7 +30,7 @@ class Vocabulary:
         conn.close()
 
 
-class Add(wx.App):
+class ClearApp(wx.App):
 
     def OnInit(self):
         self.frame = MyFrame(None, title="Eliminari i progressi studiati")
@@ -56,24 +56,28 @@ class MyFrame(wx.Frame):
         self.table_name.SetFont(font)
         self.table_name_entry = wx.TextCtrl(panel)
         self.table_name_entry.SetFont(font)
-        self.btn_add = wx.Button(panel, -1, label="Eliminare")
-        self.btn_add.SetFont(font)
+        self.btn_clear = wx.Button(panel, -1, label="Eliminare")
+        self.btn_clear.SetFont(font)
         self.status = wx.StaticText(panel, label="")
         self.status.SetFont(font)
+        sizer.Add(0,3,0)
         sizer.Add(self.table_name,0,wx.ALIGN_LEFT,0)
+        sizer.Add(0,3,0)
         sizer.Add(self.table_name_entry,0,wx.EXPAND,0)
-        sizer.Add(self.btn_add,0,wx.ALIGN_LEFT,0)
-        sizer.Add(self.status,0,wx.ALIGN_CENTER,0)
+        sizer.Add(0,3,0)
+        sizer.Add(self.btn_clear,0,wx.ALIGN_LEFT,0)
+        sizer.Add(0,3,0)
+        sizer.Add(self.status,0,wx.EXPAND,0)
         panel.SetSizer(sizer)
 
-        self.Bind(wx.EVT_BUTTON, self.OnButton, id=self.btn_add.GetId())
+        self.Bind(wx.EVT_BUTTON, self.OnButton, id=self.btn_clear.GetId())
 
     def OnButton(self, event):
-        table_name_add: str = self.table_name_entry.GetValue()
-        if (table_name_add != ""):
-            v1 = Vocabulary(table_name_add.lower())
+        table_name: str = self.table_name_entry.GetValue()
+        if (table_name != ""):
+            v1 = Vocabulary(table_name.lower())
             v1.print_vocabulary()
-            v1.add_to_db()
+            v1.clear_db()
             self.status.SetLabel("Eliminato con successo!")
             try:
                 winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
@@ -85,9 +89,9 @@ class MyFrame(wx.Frame):
                 winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
             except:
                 print("Sound file not found")
-        self.btn_add.Enable()
+        self.btn_clear.Enable()
 
 
 if __name__ == "__main__":
-    app = Add(False)
+    app = ClearApp(False)
     app.MainLoop()
