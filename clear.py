@@ -56,7 +56,7 @@ class MyFrame(wx.Frame):
         self.table_name.SetFont(font)
         self.table_name_entry = wx.TextCtrl(panel)
         self.table_name_entry.SetFont(font)
-        self.btn_clear = wx.Button(panel, -1, label="Eliminare")
+        self.btn_clear = wx.Button(panel, -1, label="Azzerare")
         self.btn_clear.SetFont(font)
         self.status = wx.StaticText(panel, label="")
         self.status.SetFont(font)
@@ -78,7 +78,7 @@ class MyFrame(wx.Frame):
             v1 = Vocabulary(table_name.lower())
             v1.print_vocabulary()
             v1.clear_db()
-            self.status.SetLabel("Eliminato con successo!")
+            self.status.SetLabel("Azzerare Con Successo!")
             try:
                 winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
             except:
