@@ -1,4 +1,5 @@
 import wx
+import pathlib
 import sqlite3
 from random import shuffle
 import winsound
@@ -252,7 +253,9 @@ class MyFrame(wx.Frame):
 
 if __name__ == "__main__":
     try:
-        db = "C:\\Users\\bussi\\Documents\\vocabulary-app-wxpython\\ItalianStudent.db"
+        directory = pathlib.Path().resolve()
+        print(directory)
+        db = str(directory) + "\\ItalianStudent.db"
         conn = sqlite3.connect(db)
         c = conn.cursor()
         c1 = conn.cursor()
