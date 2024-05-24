@@ -1,19 +1,14 @@
 from subprocess import Popen
 import wx
 import sqlite3
+import json
 
 python_bin = ".venv\\Scripts\\python"
-db = "ItalianStudent.db"
-conn = sqlite3.connect(db)
-c = conn.cursor()
-query = "SELECT word, translation, studied FROM italiano_parlato UNION SELECT word, translation, studied FROM frasi_italiane_parlato"
-c.execute(query)
-rows = c.fetchall()
 
 class MyApp(wx.App):
 
     def OnInit(self):
-        self.frame = MyFrame(None, title="Il Testo Del Vocabulario", size=(450,580))
+        self.frame = MyFrame(None, title=app_name, size=(450,580))
         self.SetTopWindow(self.frame)
         self.frame.Show()
         return True 
@@ -41,16 +36,16 @@ class MyFrame(wx.Frame):
         level2_menu = wx.Menu()
         level3_menu = wx.Menu()
         exitMenuItem = fileMenu.Append(-1, "Exit", "Exit the application")
-        level1_menu_item = level1_menu.Append(-1, "italiano_parlato", "test italiano parlato")
-        level1_menu_item1 = level1_menu.Append(-1, "frasi_italiano_parlato", "test italiano parlato")
-        level2_menu_item = level2_menu.Append(-1, "italiano_parlato", "test italiano parlato")
-        level2_menu_item1 = level2_menu.Append(-1, "frasi_italiano_parlato", "test italiano parlato")
-        level3_menu_item = level3_menu.Append(-1, "italiano_parlato", "test italiano parlato")
-        level3_menu_item1 = level3_menu.Append(-1, "frasi_italiano_parlato", "test italiano parlato")
+        level1_menu_item = level1_menu.Append(-1, menu_item1_name, "test italiano parlato")
+        level1_menu_item1 = level1_menu.Append(-1, menu_item2_name, "test italiano parlato")
+        level2_menu_item = level2_menu.Append(-1, menu_item1_name, "test italiano parlato")
+        level2_menu_item1 = level2_menu.Append(-1, menu_item2_name, "test italiano parlato")
+        level3_menu_item = level3_menu.Append(-1, menu_item1_name, "test italiano parlato")
+        level3_menu_item1 = level3_menu.Append(-1, menu_item2_name, "test italiano parlato")
         menuBar.Append(fileMenu, "&File")
-        menuBar.Append(level1_menu, "&Livello 1")
-        menuBar.Append(level2_menu, "&Livello 2")
-        menuBar.Append(level3_menu, "&Livello 3")
+        menuBar.Append(level1_menu, menu1_name)
+        menuBar.Append(level2_menu, menu2_name)
+        menuBar.Append(level3_menu, menu3_name)
         self.Bind(wx.EVT_MENU, self.onExit, exitMenuItem)
         self.Bind(wx.EVT_MENU, self.onTestLevel1, level1_menu_item)
         self.Bind(wx.EVT_MENU, self.onTestLevel1_1, level1_menu_item1)
@@ -62,32 +57,32 @@ class MyFrame(wx.Frame):
 
     def onTestLevel1(self, event):
         print("Test Level 1 italiano parlato")
-        script_file = "level1\\test-italiano_parlato.py"
+        script_file = "level1\\" + test_words_filename
         Popen([python_bin, script_file])
 
     def onTestLevel1_1(self, event):
         print("Test Level 1 frasi italiano parlato")
-        script_file = "level1\\test_frasi_italiane_parlato.py"
+        script_file = "level1\\" + test_phrases_filename
         Popen([python_bin, script_file])
 
     def onTestLevel2(self, event):
         print("Test Level 2 italiano parlato")
-        script_file = "level2\\test-italiano_parlato.py"
+        script_file = "level2\\" + test_words_filename
         Popen([python_bin, script_file])
 
     def onTestLevel2_1(self, event):
         print("Test Level 2 frasi italiano parlato")
-        script_file = "level2\\test_frasi_italiane_parlato.py"
+        script_file = "level2\\" + test_phrases_filename
         Popen([python_bin, script_file])
 
     def onTestLevel3(self, event):
         print("Test Level 3 italiano parlato")
-        script_file = "level3\\test-italiano_parlato.py"
+        script_file = "level3\\" + test_words_filename
         Popen([python_bin, script_file])
 
     def onTestLevel3_1(self, event):
         print("Test Level 3 frasi italiano parlato")
-        script_file = "level3\\test_frasi_italiane_parlato.py"
+        script_file = "level3\\" + test_phrases_filename
         Popen([python_bin, script_file])
 
     def onExit(self, event):
@@ -97,22 +92,22 @@ class MyFrame(wx.Frame):
             
         #panel1 = wx.Panel(self, size=(400,40), pos=(10,0))
         search_box = wx.Panel(self, size=(390,50), pos=(10,0), style=1)
-        search_text = wx.StaticText(search_box, label="Cercare", pos=(16,25))
+        search_text = wx.StaticText(search_box, label=search_name, pos=(16,25))
         font = wx.Font(wx.FontInfo(12).FaceName("Helvetica"))
         #search_text.SetFont(font)
         global search_textCtrl
-        search_textCtrl = wx.TextCtrl(search_box, value=str(len(rows)) + " parole e frasii", pos=(60,18))
-        search_button = wx.Button(search_box, -1, label="Va", pos=(180,18))
-        refresh_button = wx.Button(search_box, label="Ricaricare", pos=(260,18))
+        search_textCtrl = wx.TextCtrl(search_box, value=str(len(rows)) + " "+ search_placeholder, pos=(60,18))
+        search_button = wx.Button(search_box, -1, label=search_btn_name, pos=(180,18))
+        refresh_button = wx.Button(search_box, label=refresh_btn_name, pos=(260,18))
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=search_button.GetId())
 
     def Stats(self):
-        level1_query = "SELECT COUNT(word) FROM italiano_parlato WHERE studied<20"
-        level2_query = "SELECT COUNT(word) FROM italiano_parlato WHERE studied BETWEEN 20 AND 40"
-        level3_query = "SELECT COUNT(word) FROM italiano_parlato WHERE studied BETWEEN 60 AND 80"
-        level1_fr_query = "SELECT COUNT(word) FROM frasi_italiane_parlato WHERE studied<20"
-        level2_fr_query = "SELECT COUNT(word) FROM frasi_italiane_parlato WHERE studied BETWEEN 20 AND 40"
-        level3_fr_query = "SELECT COUNT(word) FROM frasi_italiane_parlato WHERE studied BETWEEN 60 AND 80"
+        level1_query = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
+        level2_query = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table1
+        level3_query = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" %table1
+        level1_fr_query = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table2
+        level2_fr_query = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table2
+        level3_fr_query = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" % table2
         c.execute(level1_query)
         c1 = conn.cursor()
         c2 = conn.cursor()
@@ -130,17 +125,17 @@ class MyFrame(wx.Frame):
         lvl1_fr_result = c1_fr.fetchone()
         lvl2_fr_result = c2_fr.fetchone()
         lvl3_fr_result = c3_fr.fetchone()
-        print(lvl1_result)
-        print(lvl2_result)
-        print(lvl3_result)
-        print(lvl1_fr_result)
-        print(lvl2_fr_result)
-        print(lvl3_fr_result)
+        # print(lvl1_result)
+        # print(lvl2_result)
+        # print(lvl3_result)
+        # print(lvl1_fr_result)
+        # print(lvl2_fr_result)
+        # print(lvl3_fr_result)
         stats_box = wx.StaticBox(self, size=(390,76), pos=(10,50))
         box_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        title = wx.StaticText(stats_box, label="Italiano parlato parole", pos=(15,10))
-        title_words_left = wx.StaticText(stats_box, label="Parole rimaste", pos=(160,28))
-        title1 = wx.StaticText(stats_box, label="Italiane parlate frasi", pos=(265,10))
+        title = wx.StaticText(stats_box, label=stats_box_name1, pos=(15,10))
+        title_words_left = wx.StaticText(stats_box, label=stats_box_items_name, pos=(160,28))
+        title1 = wx.StaticText(stats_box, label=stats_box_name2, pos=(265,10))
         font = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
         level1_words = wx.StaticText(stats_box, label=str(lvl1_result[0]), pos=(20, 26))
         level1_title = wx.StaticText(stats_box, label="Lvl 1", pos=(18, 50))
@@ -167,9 +162,9 @@ class MyFrame(wx.Frame):
         db_box = wx.Panel(self, size=(390,340), pos=(10,123))
         global db_listControl
         db_listControl = wx.ListCtrl(db_box, style=wx.LC_REPORT, pos=(20,20), size=(350,305))
-        db_listControl.InsertColumn(0, "Parola")
-        db_listControl.InsertColumn(1, "Traduzione")
-        db_listControl.InsertColumn(2, "Studiato %")
+        db_listControl.InsertColumn(0, db_column1_name)
+        db_listControl.InsertColumn(1, db_column2_name)
+        db_listControl.InsertColumn(2, db_column3_name)
         db_listControl.SetColumnWidth(0, 120)
         db_listControl.SetColumnWidth(1, 120)
         db_listControl.SetColumnWidth(2, 80)
@@ -179,26 +174,26 @@ class MyFrame(wx.Frame):
     def Controls(self):
 
         controls_box = wx.Panel(self, size=(390,50), pos=(10,450))
-        add_to_db_button = wx.Button(controls_box, -1, label="Inserire Al db", pos=(10,18))
-        clear_from_db_button = wx.Button(controls_box, -1, label="Azzerare db", pos=(103,18))
+        add_to_db_button = wx.Button(controls_box, -1, label=insert_button_name, pos=(10,18))
+        clear_from_db_button = wx.Button(controls_box, -1, label=clear_button_name, pos=(103,18))
         self.Bind(wx.EVT_BUTTON, self.AddToDbButton, id=add_to_db_button.GetId())
         self.Bind(wx.EVT_BUTTON, self.ClearDbButton, id=clear_from_db_button.GetId())
 
     def AddToDbButton(self, event):
-        print("Clicked")
-        script_file = "add.py"
+        #print("Clicked")
+        script_file = insert_vocab_filename
         Popen([python_bin, script_file])
 
     def ClearDbButton(self, event):
-        print("Clicked")
-        script_file = "clear.py"
+        #print("Clicked")
+        script_file = clear_vocab_filename
         Popen([python_bin, script_file])
 
     def OnButton(self, event):
         global search_textCtrl
         global db_listControl
         value = search_textCtrl.GetValue()
-        query = "SELECT * FROM italiano_parlato WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%'  UNION SELECT * FROM frasi_italiane_parlato WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%' "
+        query = "SELECT * FROM "+ table1 +" WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%'  UNION SELECT * FROM "+ table2 +" WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%' "
         c.execute(query)
         rows = c.fetchall()
         db_listControl.DeleteAllItems()
@@ -206,5 +201,41 @@ class MyFrame(wx.Frame):
             db_listControl.Append(i)
 
 if __name__ == "__main__":
-    app = MyApp(False)
-    app.MainLoop()
+    try:
+        with open('config.json', 'r') as file:
+            data = json.load(file)
+            db = data["db_name"]
+            table1: str = data["table1_name"]
+            table2: str = data["table2_name"]
+            app_name: str = data["localization"][0]["app_name"]
+            menu1_name: str = data["localization"][0]["menu1"]
+            menu2_name: str = data["localization"][0]["menu2"]
+            menu3_name: str = data["localization"][0]["menu3"]
+            menu_item1_name: str = data["localization"][0]["menu_item1_name"]
+            menu_item2_name: str = data["localization"][0]["menu_item2_name"]
+            search_name: str = data["localization"][0]["search_name"]
+            search_placeholder: str = data["localization"][0]["search_placeholder"]
+            search_btn_name: str = data["localization"][0]['search_button_name']
+            refresh_btn_name: str = data["localization"][0]['refresh_button_name']
+            stats_box_name1: str = data["localization"][0]["stats_box_name1"]
+            stats_box_name2: str = data["localization"][0]["stats_box_name2"]
+            stats_box_items_name: str = data["localization"][0]["stats_box_items_name"]
+            db_column1_name: str = data["localization"][0]["db_column1_name"]
+            db_column2_name: str = data["localization"][0]["db_column2_name"]
+            db_column3_name: str = data["localization"][0]["db_column3_name"]
+            insert_button_name: str = data["localization"][0]["insert_button_name"]
+            clear_button_name: str = data["localization"][0]["clear_button_name"]
+            test_words_filename: str = data["filenames"]["test_words_filename"]
+            test_phrases_filename: str = data["filenames"]["test_phrases_filename"]
+            insert_vocab_filename: str = data["filenames"]["insert_vocab_filename"]
+            clear_vocab_filename: str = data["filenames"]["clear_vocab_filename"]
+            print("Success!")
+        conn = sqlite3.connect(db)
+        c = conn.cursor()
+        query = "SELECT word, translation, studied FROM '%s' UNION SELECT word, translation, studied FROM '%s'" % (table1, table2)
+        c.execute(query)
+        rows = c.fetchall()
+        app = MyApp(False)
+        app.MainLoop()
+    except:
+        print("config.json file not found, please add the file to root directory!")

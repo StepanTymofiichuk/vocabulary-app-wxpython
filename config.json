@@ -1,0 +1,33 @@
+{
+    "db_name": "ItalianStudent.db",
+    "table1_name": "italiano_parlato",
+    "table2_name": "frasi_italiane_parlato",
+    "localization": [
+        {
+            "app_name": "Il Testo Del Vocabulario",
+            "menu1": "Livello 1",
+            "menu2": "Livello 2",
+            "menu3": "Livello 3",
+            "menu_item1_name": "Parole",
+            "menu_item2_name": "Frasi",
+            "search_name": "Cercare",
+            "search_placeholder": "parole e frasi",
+            "search_button_name": "Va",
+            "refresh_button_name": "Ricaricare",
+            "stats_box_name1": "Parole",
+            "stats_box_name2": "Frasi",
+            "stats_box_items_name": "Rimasto a studiare",
+            "db_column1_name": "Parola",
+            "db_column2_name": "Traduzione",
+            "db_column3_name": "Srudiato %",
+            "insert_button_name": "Inserire Al DB",
+            "clear_button_name": "Azzerare DB"
+        }
+    ],
+    "filenames": {
+        "test_words_filename": "test-italiano_parlato.py",
+        "test_phrases_filename": "test_frasi_italiane_parlato.py",
+        "insert_vocab_filename": "add.py",
+        "clear_vocab_filename": "clear.py"
+    }
+}
