@@ -100,6 +100,7 @@ class MyFrame(wx.Frame):
         search_button = wx.Button(search_box, -1, label=search_btn_name, pos=(180,18))
         refresh_button = wx.Button(search_box, label=refresh_btn_name, pos=(260,18))
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=search_button.GetId())
+        self.Bind(wx.EVT_BUTTON, self.OnRefreshButton, id=refresh_button.GetId())
 
     def Stats(self):
         level1_query = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
@@ -137,24 +138,24 @@ class MyFrame(wx.Frame):
         title_words_left = wx.StaticText(stats_box, label=stats_box_items_name, pos=(160,28))
         title1 = wx.StaticText(stats_box, label=stats_box_name2, pos=(265,10))
         font = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
-        level1_words = wx.StaticText(stats_box, label=str(lvl1_result[0]), pos=(20, 26))
+        self.level1_words = wx.StaticText(stats_box, label=str(lvl1_result[0]), pos=(20, 26))
         level1_title = wx.StaticText(stats_box, label="Lvl 1", pos=(18, 50))
-        level1_words.SetFont(font)
-        level2_words = wx.StaticText(stats_box, label=str(lvl2_result[0]), pos=(50, 26))
+        self.level1_words.SetFont(font)
+        self.level2_words = wx.StaticText(stats_box, label=str(lvl2_result[0]), pos=(50, 26))
         level2_title = wx.StaticText(stats_box, label="Lvl 2", pos=(48, 50))
-        level2_words.SetFont(font)
-        level3_words = wx.StaticText(stats_box, label=str(lvl3_result[0]), pos=(90, 26))
+        self.level2_words.SetFont(font)
+        self.level3_words = wx.StaticText(stats_box, label=str(lvl3_result[0]), pos=(90, 26))
         level3_title = wx.StaticText(stats_box, label="Lvl 3", pos=(88, 50))
-        level3_words.SetFont(font)
-        level1_fr_words = wx.StaticText(stats_box, label=str(lvl1_fr_result[0]), pos=(275, 26))
+        self.level3_words.SetFont(font)
+        self.level1_fr_words = wx.StaticText(stats_box, label=str(lvl1_fr_result[0]), pos=(275, 26))
         level1_fr_title = wx.StaticText(stats_box, label="Lvl 1", pos=(273, 50))
-        level1_fr_words.SetFont(font)
-        level2_fr_words = wx.StaticText(stats_box, label=str(lvl2_fr_result[0]), pos=(305, 26))
+        self.level1_fr_words.SetFont(font)
+        self.level2_fr_words = wx.StaticText(stats_box, label=str(lvl2_fr_result[0]), pos=(305, 26))
         level2_fr_title = wx.StaticText(stats_box, label="Lvl 2", pos=(303, 50))
-        level2_fr_words.SetFont(font)
-        level3_fr_words = wx.StaticText(stats_box, label=str(lvl3_fr_result[0]), pos=(345, 26))
+        self.level2_fr_words.SetFont(font)
+        self.level3_fr_words = wx.StaticText(stats_box, label=str(lvl3_fr_result[0]), pos=(345, 26))
         level3_fr_title = wx.StaticText(stats_box, label="Lvl 3", pos=(343, 50))
-        level3_fr_words.SetFont(font)
+        self.level3_fr_words.SetFont(font)
 
     def Database(self):
 
@@ -199,6 +200,39 @@ class MyFrame(wx.Frame):
         db_listControl.DeleteAllItems()
         for i in rows:
             db_listControl.Append(i)
+
+    def OnRefreshButton(self, event):
+        print("Clicked")
+        level1_query = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
+        level2_query = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table1
+        level3_query = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" %table1
+        level1_fr_query = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table2
+        level2_fr_query = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table2
+        level3_fr_query = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" % table2
+        c.execute(level1_query)
+        c1 = conn.cursor()
+        c2 = conn.cursor()
+        c1.execute(level2_query)
+        c2.execute(level3_query)
+        c1_fr = conn.cursor()
+        c2_fr = conn.cursor()
+        c3_fr = conn.cursor()
+        c1_fr.execute(level1_fr_query)
+        c2_fr.execute(level2_fr_query)
+        c3_fr.execute(level3_fr_query)
+        lvl1_result = c.fetchone()
+        lvl2_result = c1.fetchone()
+        lvl3_result = c2.fetchone()
+        lvl1_fr_result = c1_fr.fetchone()
+        lvl2_fr_result = c2_fr.fetchone()
+        lvl3_fr_result = c3_fr.fetchone()
+        self.level1_words.SetLabel(str(lvl1_result[0]))
+        self.level2_words.SetLabel(str(lvl2_result[0]))
+        self.level3_words.SetLabel(str(lvl3_result[0]))
+        self.level1_fr_words.SetLabel(str(lvl1_fr_result[0]))
+        self.level2_fr_words.SetLabel(str(lvl2_fr_result[0]))
+        self.level3_fr_words.SetLabel(str(lvl3_fr_result[0]))
+
 
 if __name__ == "__main__":
     try:
