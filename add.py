@@ -1,4 +1,5 @@
 import wx
+import json
 import sqlite3
 import traceback
 import sys
@@ -16,7 +17,7 @@ class Vocabulary:
 
 
     def add_to_db(self):
-        db = "ItalianStudent.db"
+        db = db_name
         conn = sqlite3.connect(db)
         c = conn.cursor()
         try:
@@ -37,7 +38,7 @@ class Vocabulary:
 class Add(wx.App):
 
     def OnInit(self):
-        self.frame = MyFrame(None, title="Add word")
+        self.frame = MyFrame(None, title=app_name)
         self.SetTopWindow(self.frame)
         self.frame.Show()
         return True
@@ -56,19 +57,19 @@ class MyFrame(wx.Frame):
         panel = wx.Panel(self)
         sizer = wx.BoxSizer(wx.VERTICAL)      
         #h_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.table_name = wx.StaticText(panel, label="Nomme Della Tabela")
+        self.table_name = wx.StaticText(panel, label=insert_table_name)
         self.table_name.SetFont(font)
         self.table_name_entry = wx.TextCtrl(panel)
         self.table_name_entry.SetFont(font)
-        self.word = wx.StaticText(panel, label="Parola")
+        self.word = wx.StaticText(panel, label=insert_word_name)
         self.word.SetFont(font)
         self.word_entry = wx.TextCtrl(panel)
         self.word_entry.SetFont(font)
-        self.translation = wx.StaticText(panel, label="Tradurre")
+        self.translation = wx.StaticText(panel, label=insert_translation_name)
         self.translation.SetFont(font)
         self.translation_entry = wx.TextCtrl(panel)
         self.translation_entry.SetFont(font)
-        self.btn_add = wx.Button(panel, -1, label="Inserire")
+        self.btn_add = wx.Button(panel, -1, label=insert_button_name)
         self.btn_add.SetFont(font)
         self.status = wx.StaticText(panel, label="")
         self.status.SetFont(font)
@@ -118,5 +119,17 @@ class MyFrame(wx.Frame):
 
 
 if __name__ == "__main__":
-    app = Add(False)
-    app.MainLoop()
+    try:
+        with open('config.json', 'r') as file:
+            data = json.load(file)
+            app_name: str = data["localization"][0]["insert_app"]["insert_app_name"]
+            db_name: str = data["db_name"]
+            insert_table_name: str = data["localization"][0]["insert_app"]["insert_table_name"]
+            insert_word_name: str = data["localization"][0]["insert_app"]["insert_word_name"]
+            insert_translation_name: str =data["localization"][0]["insert_app"]["insert_translation_name"]
+            insert_button_name: str = data["localization"][0]["insert_app"]["insert_button_name"]
+            print("Success!")
+        app = Add(False)
+        app.MainLoop()
+    except:
+        print("config.json file not found, please add the file to root directory")

@@ -1,5 +1,6 @@
 import wx
 import sqlite3
+import json
 import traceback
 import sys
 import winsound
@@ -14,7 +15,7 @@ class Vocabulary:
 
 
     def clear_db(self):
-        db = "ItalianStudent.db"
+        db = db_name
         conn = sqlite3.connect(db)
         c = conn.cursor()
         try:
@@ -33,7 +34,7 @@ class Vocabulary:
 class ClearApp(wx.App):
 
     def OnInit(self):
-        self.frame = MyFrame(None, title="Eliminari i progressi studiati")
+        self.frame = MyFrame(None, title=app_name)
         self.SetTopWindow(self.frame)
         self.frame.Show()
         return True
@@ -52,11 +53,11 @@ class MyFrame(wx.Frame):
         panel = wx.Panel(self)
         sizer = wx.BoxSizer(wx.VERTICAL)      
         #h_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        self.table_name = wx.StaticText(panel, label="Nomme Della Tabela")
+        self.table_name = wx.StaticText(panel, label=table_name)
         self.table_name.SetFont(font)
         self.table_name_entry = wx.TextCtrl(panel)
         self.table_name_entry.SetFont(font)
-        self.btn_clear = wx.Button(panel, -1, label="Azzerare")
+        self.btn_clear = wx.Button(panel, -1, label=clear_button_name)
         self.btn_clear.SetFont(font)
         self.status = wx.StaticText(panel, label="")
         self.status.SetFont(font)
@@ -93,5 +94,15 @@ class MyFrame(wx.Frame):
 
 
 if __name__ == "__main__":
-    app = ClearApp(False)
-    app.MainLoop()
+    try:
+        with open('config.json', 'r') as  file:
+            data = json.load(file)
+            app_name: str = data["localization"][0]["clear_app"]["clear_app_name"]
+            db_name: str = data["db_name"]
+            table_name: str = data["localization"][0]["clear_app"]["table_name"]
+            clear_button_name: str = data["localization"][0]["clear_app"]["clear_button_name"]
+            print("Success!")
+        app = ClearApp(False)
+        app.MainLoop()
+    except:
+        print("config.json file not found, please add file to the root directory")
