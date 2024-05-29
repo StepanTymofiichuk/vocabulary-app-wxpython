@@ -59,7 +59,7 @@ class MyFrame(wx.Frame):
         #h_sizer = wx.BoxSizer(wx.HORIZONTAL)
         self.table_name = wx.StaticText(panel, label=insert_table_name)
         self.table_name.SetFont(font)
-        self.table_name_entry = wx.TextCtrl(panel)
+        self.table_name_entry = wx.ComboBox(panel, value="", choices=[table1, table2])
         self.table_name_entry.SetFont(font)
         self.word = wx.StaticText(panel, label=insert_word_name)
         self.word.SetFont(font)
@@ -94,7 +94,8 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=self.btn_add.GetId())
 
     def OnButton(self, event):
-        table_name_add: str = self.table_name_entry.GetValue()
+        table_name_add: str = self.table_name_entry.GetStringSelection()
+        #print(table_name_add)
         self.btn_add.Disable()
         word_add: str = self.word_entry.GetValue()
         translation_add: str  = self.translation_entry.GetValue()
@@ -128,6 +129,8 @@ if __name__ == "__main__":
             insert_word_name: str = data["localization"][0]["insert_app"]["insert_word_name"]
             insert_translation_name: str =data["localization"][0]["insert_app"]["insert_translation_name"]
             insert_button_name: str = data["localization"][0]["insert_app"]["insert_button_name"]
+            table1: str = data["table1_name"]
+            table2: str = data["table2_name"]
             print("Success!")
         app = Add(False)
         app.MainLoop()
