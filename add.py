@@ -61,7 +61,7 @@ class MyFrame(wx.Frame):
         # Create text label and entry field
         self.table_name = wx.StaticText(panel, label=insert_table_name)
         self.table_name.SetFont(font)
-        self.table_name_entry = wx.ComboBox(panel, value="", choices=[table1, table2])
+        self.table_name_entry = wx.ComboBox(panel, value="", choices=tables)
         self.table_name_entry.SetFont(font)
         # Create text label and entry field
         self.word = wx.StaticText(panel, label=insert_word_name)
@@ -152,6 +152,19 @@ if __name__ == "__main__":
             table1: str = data["table1_name"]
             table2: str = data["table2_name"]
             print("Success!")
+
+        # Connect to db and view existing tables
+        query = "SELECT name FROM sqlite_master WHERE type='table'"
+        conn = sqlite3.connect(db_name)
+        c = conn.cursor()
+        c.execute(query)
+        res = c.fetchall()
+        conn.close()
+        # Convert list of tables
+        tables: list = []
+        for i in res:
+            tables.append(i[0])
+        #print(tables)
 
         # Start the application
         app = Add(False)
