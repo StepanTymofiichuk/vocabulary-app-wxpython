@@ -96,8 +96,17 @@ class MyFrame(wx.Frame):
         sizer.Add(0,3,0)
         sizer.Add(self.status,0,wx.ALIGN_CENTER,0)
         panel.SetSizer(sizer)
-
+        # Bind mouse click event to button
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=self.btn_add.GetId())
+
+        randId = wx.NewIdRef()
+        # Create an AcceleratorTable
+        accel_tbl = wx.AcceleratorTable([
+            (wx.ACCEL_CTRL,  ord('I'), randId ),
+        ])
+        self.SetAcceleratorTable(accel_tbl)
+        # Bind the keyboard shortcut to the button event
+        self.Bind(wx.EVT_MENU, self.OnButton, id=randId)
 
     def OnButton(self, event):
         # Handle button click event
