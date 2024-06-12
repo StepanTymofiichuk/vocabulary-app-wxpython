@@ -111,6 +111,24 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=search_button.GetId())
         self.Bind(wx.EVT_BUTTON, self.OnRefreshButton, id=refresh_button.GetId())
 
+        # Create an AcceleratorTable
+        randId = wx.NewIdRef()
+        randId1 = wx.NewIdRef()
+        randId2 = wx.NewIdRef()
+        randId3 = wx.NewIdRef()
+        accel_tbl = wx.AcceleratorTable([
+            (wx.ACCEL_CTRL,  ord('S'), randId ),
+            (wx.ACCEL_CTRL,  ord('R'), randId1 ),
+            (wx.ACCEL_CTRL,  ord('I'), randId2 ),
+            (wx.ACCEL_CTRL,  ord('K'), randId3 ),
+        ])
+        self.SetAcceleratorTable(accel_tbl)
+        # Bind the keyboard shortcut to the button event
+        self.Bind(wx.EVT_MENU, self.OnButton, id=randId)
+        self.Bind(wx.EVT_MENU, self.OnRefreshButton, id=randId1)
+        self.Bind(wx.EVT_MENU, self.AddToDbButton, id=randId2)
+        self.Bind(wx.EVT_MENU, self.ClearDbButton, id=randId3)
+
     def Stats(self):
         # Set up the statistics panel with queries and results
         level1_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
