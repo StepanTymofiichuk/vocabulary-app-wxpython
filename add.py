@@ -75,6 +75,7 @@ class MyFrame(wx.Frame):
         self.translation_entry.SetFont(font)
         # Create text label and entry field
         self.btn_add = wx.Button(panel, -1, label=insert_button_name)
+        self.btn_add.SetToolTip(wx.ToolTip("Inserisci il vocabolario immesso nella tabella selezionata nel db"))
         self.btn_add.SetFont(font)
         self.status = wx.StaticText(panel, label="")
         self.status.SetFont(font)
