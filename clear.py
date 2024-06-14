@@ -57,10 +57,11 @@ class MyFrame(wx.Frame):
         # Create text label and entry field
         self.table_name = wx.StaticText(panel, label=table_name)
         self.table_name.SetFont(font)
-        self.table_name_entry = wx.TextCtrl(panel)
+        self.table_name_entry = wx.ComboBox(panel, value="", choices=tables)
         self.table_name_entry.SetFont(font)
         # Create button
         self.btn_clear = wx.Button(panel, -1, label=clear_button_name)
+        self.btn_clear.SetToolTip(wx.ToolTip("Impostare la percentuale di studio su null in una tabella selezionata"))
         self.btn_clear.SetFont(font)
         self.status = wx.StaticText(panel, label="")
         self.status.SetFont(font)
@@ -79,7 +80,7 @@ class MyFrame(wx.Frame):
 
     def OnButton(self, event):
         # Handle button click event
-        table_name: str = self.table_name_entry.GetValue()
+        table_name: str = self.table_name_entry.GetStringSelection()
         if (table_name != ""):
             # Pass parameters to Vocabulary class
             v1 = Vocabulary(table_name.lower())
@@ -111,6 +112,18 @@ if __name__ == "__main__":
             clear_success_msg: str = data["localization"][0]["clear_app"]["clear_success_msg"]
             clear_fail_msg: str = data["localization"][0]["clear_app"]["clear_fail_msg"]
             print("Success!")
+        # Connect to db and view existing tables
+        query = "SELECT name FROM sqlite_master WHERE type='table'"
+        conn = sqlite3.connect(db_name)
+        c = conn.cursor()
+        c.execute(query)
+        res = c.fetchall()
+        conn.close()
+        # Convert list of tables
+        tables: list = []
+        for i in res:
+            tables.append(i[0])
+        #print(tables)
         # Start the application
         app = ClearApp(False)
         app.MainLoop()
