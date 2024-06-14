@@ -102,6 +102,20 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.OnButton3, id=translate_btn.GetId())
         self.Bind(wx.EVT_BUTTON, lambda evt, a=2: self.OnButton(evt, a), id=next_button.GetId())
 
+        randId = wx.NewIdRef()
+        randId1 = wx.NewIdRef()
+        randId2 = wx.NewIdRef()
+        accel_tbl = wx.AcceleratorTable([
+            (wx.ACCEL_CTRL,  ord('J'), randId ),
+            (wx.ACCEL_CTRL,  ord('K'), randId1 ),
+            (wx.ACCEL_CTRL,  ord('L'), randId2 ),
+        ])
+        self.SetAcceleratorTable(accel_tbl)
+
+        self.Bind(wx.EVT_MENU, self.OnButton3, id=randId)
+        self.Bind(wx.EVT_MENU, lambda evt, s=studied_number: self.OnButton2(evt, s), id=randId1)
+        self.Bind(wx.EVT_MENU, lambda evt, a=2: self.OnButton(evt, a), id=randId2)
+
         h_sizer.Add(prev_button,1,0,0)
         h_sizer.Add(check_btn,1,0,0)
         h_sizer.Add(translate_btn,1,0,0)
@@ -148,7 +162,24 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, lambda evt, a=a+1: self.OnButton(evt, a), id=next_button.GetId())
         self.Bind(wx.EVT_BUTTON, lambda evt, a=a-1: self.OnButton1(evt, a), id=prev_button.GetId())
         self.Bind(wx.EVT_BUTTON, lambda evt, s=s[1]: self.OnButton2(evt, s), id=check_btn.GetId())
-        print(w[0], s[1])
+
+        randId = wx.NewIdRef()
+        randId1 = wx.NewIdRef()
+        randId2 = wx.NewIdRef()
+        randId3 = wx.NewIdRef()
+        accel_tbl = wx.AcceleratorTable([
+            (wx.ACCEL_CTRL,  ord('J'), randId ),
+            (wx.ACCEL_CTRL,  ord('K'), randId1 ),
+            (wx.ACCEL_CTRL,  ord('L'), randId2 ),
+            (wx.ACCEL_CTRL,  ord('H'), randId3 ),
+        ])
+        self.SetAcceleratorTable(accel_tbl)
+        self.Bind(wx.EVT_MENU, self.OnButton3, id=randId)
+        self.Bind(wx.EVT_MENU, lambda evt, s=s[1]: self.OnButton2(evt, s), id=randId1)
+        self.Bind(wx.EVT_MENU, lambda evt, a=a+1: self.OnButton(evt, a), id=randId2)
+        self.Bind(wx.EVT_MENU, lambda evt, a=a-1: self.OnButton1(evt, a), id=randId3)
+
+        #print(w[0], s[1])
 
     def OnButton1(self, event, a) -> None:
         global word_num
@@ -165,6 +196,22 @@ class MyFrame(wx.Frame):
         word_num.SetLabel(str(a) + " of " + str(len(rows)))
         self.Bind(wx.EVT_BUTTON, lambda evt, a=a+1: self.OnButton(evt, a), id=next_button.GetId())
         self.Bind(wx.EVT_BUTTON, lambda evt, a=a-1: self.OnButton1(evt, a), id=prev_button.GetId())
+
+        randId = wx.NewIdRef()
+        randId1 = wx.NewIdRef()
+        randId2 = wx.NewIdRef()
+        randId3 = wx.NewIdRef()
+        accel_tbl = wx.AcceleratorTable([
+            (wx.ACCEL_CTRL,  ord('J'), randId ),
+            (wx.ACCEL_CTRL,  ord('K'), randId1 ),
+            (wx.ACCEL_CTRL,  ord('L'), randId2 ),
+            (wx.ACCEL_CTRL,  ord('H'), randId3 ),
+        ])
+        self.SetAcceleratorTable(accel_tbl)
+        self.Bind(wx.EVT_MENU, self.OnButton3, id=randId)
+        self.Bind(wx.EVT_MENU, lambda evt, s=s[1]: self.OnButton2(evt, s), id=randId1)
+        self.Bind(wx.EVT_MENU, lambda evt, a=a+1: self.OnButton(evt, a), id=randId2)
+        self.Bind(wx.EVT_MENU, lambda evt, a=a-1: self.OnButton1(evt, a), id=randId3)
 
 
     def OnButton2(self, event, s) -> None:
@@ -188,8 +235,8 @@ class MyFrame(wx.Frame):
             finally:
                 if conn1:
                     conn1.close()
-                    print("The sqlite connection is closed")
-            print(update_query)
+                    #print("The sqlite connection is closed")
+            #print(update_query)
 
         correct = main_text.GetLabel()
         value = translate_textCtrl.GetValue()
