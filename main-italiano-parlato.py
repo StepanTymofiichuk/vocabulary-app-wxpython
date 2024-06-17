@@ -2,8 +2,18 @@ from subprocess import Popen  # For running external commands
 import wx  # wxPython for GUI
 import sqlite3  # SQLite for database handling
 import json  # For handling JSON configurations
+import wx.lib.mixins.listctrl  as  listmix
 
 python_bin: str = ".venv\\Scripts\\python"  # Path to the Python binary in a virtual environment
+
+class EditableListCtrl(wx.ListCtrl, listmix.TextEditMixin):
+    #TextEditMixin allows any column to be edited.
+
+    def __init__(self, parent, ID=wx.ID_ANY, pos=wx.DefaultPosition,
+                 size=wx.DefaultSize, style=0):
+        """Constructor"""
+        wx.ListCtrl.__init__(self, parent, ID, pos, size, style)
+        listmix.TextEditMixin.__init__(self)
 
 class MyApp(wx.App):
 
@@ -193,7 +203,7 @@ class MyFrame(wx.Frame):
         # Set up the database display panel
         db_box = wx.Panel(self, size=(390,340), pos=(10,123))
         global db_listControl
-        db_listControl = wx.ListCtrl(db_box, style=wx.LC_REPORT, pos=(20,20), size=(350,305))
+        db_listControl = EditableListCtrl(db_box, style=wx.LC_REPORT, pos=(20,20), size=(350,305))
         db_listControl.InsertColumn(0, db_column1_name)
         db_listControl.InsertColumn(1, db_column2_name)
         db_listControl.InsertColumn(2, db_column3_name)
@@ -202,6 +212,17 @@ class MyFrame(wx.Frame):
         db_listControl.SetColumnWidth(2, 80)
         for item in rows:
             db_listControl.Append(item)
+        db_listControl.Bind(wx.EVT_LIST_END_LABEL_EDIT, self.OnUpdate)
+
+    def OnUpdate(self, event):
+        row_id = event.GetIndex() #Get the current row
+        col_id = event.GetColumn () #Get the current column
+        new_data = event.GetLabel() #Get the changed data
+        cols = db_listControl.GetColumnCount() #Get the total number of columns
+        rows = db_listControl.GetItemCount() #Get the total number of rows
+
+        #Get the changed item use the row_id and iterate over the columns
+        print("Changed Item:", new_data, "Column:", col_id)
 
     def Controls(self):
         # Set up control buttons for adding and clearing database entries
