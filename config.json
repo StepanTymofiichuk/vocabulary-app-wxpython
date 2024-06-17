@@ -19,7 +19,7 @@
             "stats_box_items_name": "Rimasto a studiare",
             "db_column1_name": "Parola",
             "db_column2_name": "Traduzione",
-            "db_column3_name": "Srudiato %",
+            "db_column3_name": "Studiato %",
             "insert_button_name": "Inserire Al DB",
             "clear_button_name": "Azzerare DB",
             "insert_app": {
@@ -27,12 +27,16 @@
                 "insert_table_name": "Nomme della tabella",
                 "insert_word_name": "Parola",
                 "insert_translation_name": "Traduzione",
-                "insert_button_name": "Inserire Al DB"
+                "insert_button_name": "Inserire Al DB",
+                "insert_success_msg": "Inserito con succeso!",
+                "insert_fail_msg": "Si prega di compilare tutti i campi!"
             },
             "clear_app": {
                 "clear_app_name": "Eliminari i progressi studiati",
                 "table_name": "Nomme della tabela",
-                "clear_button_name":"Azzerare"
+                "clear_button_name":"Azzerare",
+                "clear_success_msg": "Azzerare Con Successo!",
+                "clear_fail_msg": "Si prega di compilare tutti i campi!"
             }
         }
     ],

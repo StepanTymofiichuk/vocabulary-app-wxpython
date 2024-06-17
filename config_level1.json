@@ -1,0 +1,17 @@
+{
+    "db_name": "ItalianStudent.db",
+    "localization": {
+        "app_name_words": "Italiano Parlato. Lvl 1",
+        "app_name_phrases": "Frasi Italiane Parlato. Lvl 1",
+        "table_name_words": "italiano_parlato",
+        "table_name_phrases": "frasi_italiane_parlato",
+        "check_button_name": "Controllare",
+        "translate_button_name": "Tradurre",
+        "correct_answer_label": "Giusto",
+        "incorrect_answer_label": "Sbagliato",
+        "score_label_name": "Punteggio:",
+        "total_studied_label_name": "Parola studiata:",
+        "total_words_label_name": "Parole totali:",
+        "total_words_studied_label_name": "Parole totali studiate:"
+    }
+}
