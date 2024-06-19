@@ -38,34 +38,58 @@ class MyFrame(wx.Frame):
         self.SetIcon(wx.Icon("icon.png"))
 
     def MenuBar(self):
-        # Create a menu bar with various menus and items
-        menuBar = wx.MenuBar()
-        fileMenu = wx.Menu()
-        level1_menu = wx.Menu()
-        level2_menu = wx.Menu()
-        level3_menu = wx.Menu()
+        if table1 != "" and table2 == "":
+            # Create a menu bar with various menus and items
+            menuBar = wx.MenuBar()
+            fileMenu = wx.Menu()
+            level1_menu = wx.Menu()
+            level2_menu = wx.Menu()
+            level3_menu = wx.Menu()
 
-        exitMenuItem = fileMenu.Append(-1, "Exit", "Exit the application")
-        level1_menu_item = level1_menu.Append(-1, menu_item1_name, "test italiano parlato")
-        level1_menu_item1 = level1_menu.Append(-1, menu_item2_name, "test italiano parlato")
-        level2_menu_item = level2_menu.Append(-1, menu_item1_name, "test italiano parlato")
-        level2_menu_item1 = level2_menu.Append(-1, menu_item2_name, "test italiano parlato")
-        level3_menu_item = level3_menu.Append(-1, menu_item1_name, "test italiano parlato")
-        level3_menu_item1 = level3_menu.Append(-1, menu_item2_name, "test italiano parlato")
+            exitMenuItem = fileMenu.Append(-1, "Exit", "Exit the application")
+            level1_menu_item = level1_menu.Append(-1, menu_item1_name, "test italiano parlato")
+            level2_menu_item = level2_menu.Append(-1, menu_item1_name, "test italiano parlato")
+            level3_menu_item = level3_menu.Append(-1, menu_item1_name, "test italiano parlato")
 
-        menuBar.Append(fileMenu, "&File")
-        menuBar.Append(level1_menu, menu1_name)
-        menuBar.Append(level2_menu, menu2_name)
-        menuBar.Append(level3_menu, menu3_name)
+            menuBar.Append(fileMenu, "&File")
+            menuBar.Append(level1_menu, menu1_name)
+            menuBar.Append(level2_menu, menu2_name)
+            menuBar.Append(level3_menu, menu3_name)
 
-        self.Bind(wx.EVT_MENU, self.onExit, exitMenuItem)
-        self.Bind(wx.EVT_MENU, self.onTestLevel1, level1_menu_item)
-        self.Bind(wx.EVT_MENU, self.onTestLevel1_1, level1_menu_item1)
-        self.Bind(wx.EVT_MENU, self.onTestLevel2, level2_menu_item)
-        self.Bind(wx.EVT_MENU, self.onTestLevel2_1, level2_menu_item1)
-        self.Bind(wx.EVT_MENU, self.onTestLevel3, level3_menu_item)
-        self.Bind(wx.EVT_MENU, self.onTestLevel3_1, level3_menu_item1)
-        self.SetMenuBar(menuBar)
+            self.Bind(wx.EVT_MENU, self.onExit, exitMenuItem)
+            self.Bind(wx.EVT_MENU, self.onTestLevel1, level1_menu_item)
+            self.Bind(wx.EVT_MENU, self.onTestLevel2, level2_menu_item)
+            self.Bind(wx.EVT_MENU, self.onTestLevel3, level3_menu_item)
+            self.SetMenuBar(menuBar)
+        elif table1 != "" and table2 != "":
+            # Create a menu bar with various menus and items
+            menuBar = wx.MenuBar()
+            fileMenu = wx.Menu()
+            level1_menu = wx.Menu()
+            level2_menu = wx.Menu()
+            level3_menu = wx.Menu()
+
+            exitMenuItem = fileMenu.Append(-1, "Exit", "Exit the application")
+            level1_menu_item = level1_menu.Append(-1, menu_item1_name, "test italiano parlato")
+            level1_menu_item1 = level1_menu.Append(-1, menu_item2_name, "test italiano parlato")
+            level2_menu_item = level2_menu.Append(-1, menu_item1_name, "test italiano parlato")
+            level2_menu_item1 = level2_menu.Append(-1, menu_item2_name, "test italiano parlato")
+            level3_menu_item = level3_menu.Append(-1, menu_item1_name, "test italiano parlato")
+            level3_menu_item1 = level3_menu.Append(-1, menu_item2_name, "test italiano parlato")
+
+            menuBar.Append(fileMenu, "&File")
+            menuBar.Append(level1_menu, menu1_name)
+            menuBar.Append(level2_menu, menu2_name)
+            menuBar.Append(level3_menu, menu3_name)
+
+            self.Bind(wx.EVT_MENU, self.onExit, exitMenuItem)
+            self.Bind(wx.EVT_MENU, self.onTestLevel1, level1_menu_item)
+            self.Bind(wx.EVT_MENU, self.onTestLevel1_1, level1_menu_item1)
+            self.Bind(wx.EVT_MENU, self.onTestLevel2, level2_menu_item)
+            self.Bind(wx.EVT_MENU, self.onTestLevel2_1, level2_menu_item1)
+            self.Bind(wx.EVT_MENU, self.onTestLevel3, level3_menu_item)
+            self.Bind(wx.EVT_MENU, self.onTestLevel3_1, level3_menu_item1)
+            self.SetMenuBar(menuBar)
 
     def onTestLevel1(self, event):
         # Run a script for level 1 words test
@@ -140,64 +164,101 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.ClearDbButton, id=randId3)
 
     def Stats(self):
-        # Set up the statistics panel with queries and results
-        level1_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
-        level2_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table1
-        level3_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" %table1
-        level1_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table2
-        level2_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table2
-        level3_fr_query:str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" % table2
-        
-        c.execute(level1_query)
-        c1 = conn.cursor()
-        c2 = conn.cursor()
-        c1.execute(level2_query)
-        c2.execute(level3_query)
-        c1_fr = conn.cursor()
-        c2_fr = conn.cursor()
-        c3_fr = conn.cursor()
-        c1_fr.execute(level1_fr_query)
-        c2_fr.execute(level2_fr_query)
-        c3_fr.execute(level3_fr_query)
+        if table1 != "" and table2 == "":
+            # Set up the statistics panel with queries and results
+            level1_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
+            level2_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table1
+            level3_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" %table1
+            
+            c.execute(level1_query)
+            c1 = conn.cursor()
+            c2 = conn.cursor()
+            c1.execute(level2_query)
+            c2.execute(level3_query)
 
-        lvl1_result = c.fetchone()
-        lvl2_result = c1.fetchone()
-        lvl3_result = c2.fetchone()
-        lvl1_fr_result = c1_fr.fetchone()
-        lvl2_fr_result = c2_fr.fetchone()
-        lvl3_fr_result = c3_fr.fetchone()
-        # print(lvl1_result)
-        # print(lvl2_result)
-        # print(lvl3_result)
-        # print(lvl1_fr_result)
-        # print(lvl2_fr_result)
-        # print(lvl3_fr_result)
+            lvl1_result = c.fetchone()
+            lvl2_result = c1.fetchone()
+            lvl3_result = c2.fetchone()
+            # print(lvl1_result)
+            # print(lvl2_result)
+            # print(lvl3_result)
+            # print(lvl1_fr_result)
+            # print(lvl2_fr_result)
+            # print(lvl3_fr_result)
+        elif table1 != "" and table2 != "":
+            # Set up the statistics panel with queries and results
+            level1_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
+            level2_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table1
+            level3_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" %table1
+            level1_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table2
+            level2_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table2
+            level3_fr_query:str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" % table2
+            
+            c.execute(level1_query)
+            c1 = conn.cursor()
+            c2 = conn.cursor()
+            c1.execute(level2_query)
+            c2.execute(level3_query)
+            c1_fr = conn.cursor()
+            c2_fr = conn.cursor()
+            c3_fr = conn.cursor()
+            c1_fr.execute(level1_fr_query)
+            c2_fr.execute(level2_fr_query)
+            c3_fr.execute(level3_fr_query)
+
+            lvl1_result = c.fetchone()
+            lvl2_result = c1.fetchone()
+            lvl3_result = c2.fetchone()
+            lvl1_fr_result = c1_fr.fetchone()
+            lvl2_fr_result = c2_fr.fetchone()
+            lvl3_fr_result = c3_fr.fetchone()
+            # print(lvl1_result)
+            # print(lvl2_result)
+            # print(lvl3_result)
+            # print(lvl1_fr_result)
+            # print(lvl2_fr_result)
+            # print(lvl3_fr_result)
 
         # Displaying statistics
-        stats_box = wx.StaticBox(self, size=(390,76), pos=(10,50))
-        box_sizer = wx.BoxSizer(wx.HORIZONTAL)
-        title = wx.StaticText(stats_box, label=stats_box_name1, pos=(15,10))
-        title_words_left = wx.StaticText(stats_box, label=stats_box_items_name, pos=(160,28))
-        title1 = wx.StaticText(stats_box, label=stats_box_name2, pos=(265,10))
-        font = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
-        self.level1_words = wx.StaticText(stats_box, label=str(lvl1_result[0]), pos=(20, 26))
-        level1_title = wx.StaticText(stats_box, label="Lvl 1", pos=(18, 50))
-        self.level1_words.SetFont(font)
-        self.level2_words = wx.StaticText(stats_box, label=str(lvl2_result[0]), pos=(50, 26))
-        level2_title = wx.StaticText(stats_box, label="Lvl 2", pos=(48, 50))
-        self.level2_words.SetFont(font)
-        self.level3_words = wx.StaticText(stats_box, label=str(lvl3_result[0]), pos=(90, 26))
-        level3_title = wx.StaticText(stats_box, label="Lvl 3", pos=(88, 50))
-        self.level3_words.SetFont(font)
-        self.level1_fr_words = wx.StaticText(stats_box, label=str(lvl1_fr_result[0]), pos=(275, 26))
-        level1_fr_title = wx.StaticText(stats_box, label="Lvl 1", pos=(273, 50))
-        self.level1_fr_words.SetFont(font)
-        self.level2_fr_words = wx.StaticText(stats_box, label=str(lvl2_fr_result[0]), pos=(305, 26))
-        level2_fr_title = wx.StaticText(stats_box, label="Lvl 2", pos=(303, 50))
-        self.level2_fr_words.SetFont(font)
-        self.level3_fr_words = wx.StaticText(stats_box, label=str(lvl3_fr_result[0]), pos=(345, 26))
-        level3_fr_title = wx.StaticText(stats_box, label="Lvl 3", pos=(343, 50))
-        self.level3_fr_words.SetFont(font)
+        if table1 != "" and table2 == "":
+            stats_box = wx.StaticBox(self, size=(390,76), pos=(10,50))
+            box_sizer = wx.BoxSizer(wx.HORIZONTAL)
+            title = wx.StaticText(stats_box, label=stats_box_name1, pos=(170,10))
+            font = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
+            self.level1_words = wx.StaticText(stats_box, label=str(lvl1_result[0]), pos=(160, 26))
+            level1_title = wx.StaticText(stats_box, label="Lvl 1", pos=(160, 50))
+            self.level1_words.SetFont(font)
+            self.level2_words = wx.StaticText(stats_box, label=str(lvl2_result[0]), pos=(190, 26))
+            level2_title = wx.StaticText(stats_box, label="Lvl 2", pos=(190, 50))
+            self.level2_words.SetFont(font)
+            self.level3_words = wx.StaticText(stats_box, label=str(lvl3_result[0]), pos=(220, 26))
+            level3_title = wx.StaticText(stats_box, label="Lvl 3", pos=(220, 50))
+            self.level3_words.SetFont(font)
+        elif table1 != "" and table2 != "":
+            stats_box = wx.StaticBox(self, size=(390,76), pos=(10,50))
+            box_sizer = wx.BoxSizer(wx.HORIZONTAL)
+            title = wx.StaticText(stats_box, label=stats_box_name1, pos=(15,10))
+            title_words_left = wx.StaticText(stats_box, label=stats_box_items_name, pos=(160,28))
+            title1 = wx.StaticText(stats_box, label=stats_box_name2, pos=(265,10))
+            font = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
+            self.level1_words = wx.StaticText(stats_box, label=str(lvl1_result[0]), pos=(20, 26))
+            level1_title = wx.StaticText(stats_box, label="Lvl 1", pos=(18, 50))
+            self.level1_words.SetFont(font)
+            self.level2_words = wx.StaticText(stats_box, label=str(lvl2_result[0]), pos=(50, 26))
+            level2_title = wx.StaticText(stats_box, label="Lvl 2", pos=(48, 50))
+            self.level2_words.SetFont(font)
+            self.level3_words = wx.StaticText(stats_box, label=str(lvl3_result[0]), pos=(90, 26))
+            level3_title = wx.StaticText(stats_box, label="Lvl 3", pos=(88, 50))
+            self.level3_words.SetFont(font)
+            self.level1_fr_words = wx.StaticText(stats_box, label=str(lvl1_fr_result[0]), pos=(275, 26))
+            level1_fr_title = wx.StaticText(stats_box, label="Lvl 1", pos=(273, 50))
+            self.level1_fr_words.SetFont(font)
+            self.level2_fr_words = wx.StaticText(stats_box, label=str(lvl2_fr_result[0]), pos=(305, 26))
+            level2_fr_title = wx.StaticText(stats_box, label="Lvl 2", pos=(303, 50))
+            self.level2_fr_words.SetFont(font)
+            self.level3_fr_words = wx.StaticText(stats_box, label=str(lvl3_fr_result[0]), pos=(345, 26))
+            level3_fr_title = wx.StaticText(stats_box, label="Lvl 3", pos=(343, 50))
+            self.level3_fr_words.SetFont(font)
 
     def Database(self):
         # Set up the database display panel
@@ -259,38 +320,57 @@ class MyFrame(wx.Frame):
     def OnRefreshButton(self, event):
         # Handle the refresh button click event to update statistics
         #print("Clicked")
-        level1_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
-        level2_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table1
-        level3_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" %table1
-        level1_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table2
-        level2_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table2
-        level3_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" % table2
+        if table1 != "" and table2 == "":
+            level1_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
+            level2_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table1
+            level3_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" %table1
 
-        c.execute(level1_query)
-        c1 = conn.cursor()
-        c2 = conn.cursor()
-        c1.execute(level2_query)
-        c2.execute(level3_query)
-        c1_fr = conn.cursor()
-        c2_fr = conn.cursor()
-        c3_fr = conn.cursor()
-        c1_fr.execute(level1_fr_query)
-        c2_fr.execute(level2_fr_query)
-        c3_fr.execute(level3_fr_query)
+            c.execute(level1_query)
+            c1 = conn.cursor()
+            c2 = conn.cursor()
+            c1.execute(level2_query)
+            c2.execute(level3_query)
 
-        lvl1_result = c.fetchone()
-        lvl2_result = c1.fetchone()
-        lvl3_result = c2.fetchone()
-        lvl1_fr_result = c1_fr.fetchone()
-        lvl2_fr_result = c2_fr.fetchone()
-        lvl3_fr_result = c3_fr.fetchone()
+            lvl1_result = c.fetchone()
+            lvl2_result = c1.fetchone()
+            lvl3_result = c2.fetchone()
 
-        self.level1_words.SetLabel(str(lvl1_result[0]))
-        self.level2_words.SetLabel(str(lvl2_result[0]))
-        self.level3_words.SetLabel(str(lvl3_result[0]))
-        self.level1_fr_words.SetLabel(str(lvl1_fr_result[0]))
-        self.level2_fr_words.SetLabel(str(lvl2_fr_result[0]))
-        self.level3_fr_words.SetLabel(str(lvl3_fr_result[0]))
+            self.level1_words.SetLabel(str(lvl1_result[0]))
+            self.level2_words.SetLabel(str(lvl2_result[0]))
+            self.level3_words.SetLabel(str(lvl3_result[0]))            
+        elif table1 != "" and table2 != "":
+            level1_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table1
+            level2_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table1
+            level3_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" %table1
+            level1_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied<20" % table2
+            level2_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 20 AND 40" % table2
+            level3_fr_query: str = "SELECT COUNT(word) FROM '%s' WHERE studied BETWEEN 60 AND 80" % table2
+
+            c.execute(level1_query)
+            c1 = conn.cursor()
+            c2 = conn.cursor()
+            c1.execute(level2_query)
+            c2.execute(level3_query)
+            c1_fr = conn.cursor()
+            c2_fr = conn.cursor()
+            c3_fr = conn.cursor()
+            c1_fr.execute(level1_fr_query)
+            c2_fr.execute(level2_fr_query)
+            c3_fr.execute(level3_fr_query)
+
+            lvl1_result = c.fetchone()
+            lvl2_result = c1.fetchone()
+            lvl3_result = c2.fetchone()
+            lvl1_fr_result = c1_fr.fetchone()
+            lvl2_fr_result = c2_fr.fetchone()
+            lvl3_fr_result = c3_fr.fetchone()
+
+            self.level1_words.SetLabel(str(lvl1_result[0]))
+            self.level2_words.SetLabel(str(lvl2_result[0]))
+            self.level3_words.SetLabel(str(lvl3_result[0]))
+            self.level1_fr_words.SetLabel(str(lvl1_fr_result[0]))
+            self.level2_fr_words.SetLabel(str(lvl2_fr_result[0]))
+            self.level3_fr_words.SetLabel(str(lvl3_fr_result[0]))
 
 
 if __name__ == "__main__":
@@ -326,11 +406,18 @@ if __name__ == "__main__":
             print("Success!")
 
         # Connect to the database and retrieve initial data
-        conn = sqlite3.connect(db)
-        c = conn.cursor()
-        query = "SELECT word, translation, studied FROM '%s' UNION SELECT word, translation, studied FROM '%s'" % (table1, table2)
-        c.execute(query)
-        rows = c.fetchall()
+        if table1 != "":
+            conn = sqlite3.connect(db)
+            c = conn.cursor()
+            query = "SELECT word, translation, studied FROM '%s'" % table1
+            c.execute(query)
+            rows = c.fetchall()
+        elif table1 != "" and table2 != "":
+            conn = sqlite3.connect(db)
+            c = conn.cursor()
+            query = "SELECT word, translation, studied FROM '%s' UNION SELECT word, translation, studied FROM '%s'" % (table1, table2)
+            c.execute(query)
+            rows = c.fetchall()
 
         # Start the application
         app = MyApp(False)
