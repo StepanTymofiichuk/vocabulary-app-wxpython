@@ -140,7 +140,9 @@ class MyFrame(wx.Frame):
         global search_textCtrl
         search_textCtrl = wx.TextCtrl(search_box, value=str(len(rows)) + " "+ search_placeholder, pos=(60,18))
         search_button = wx.Button(search_box, -1, label=search_btn_name, pos=(180,18))
+        search_button.SetToolTip(wx.ToolTip("Cercare nella tabella (ctrl+s)"))
         refresh_button = wx.Button(search_box, label=refresh_btn_name, pos=(260,18))
+        refresh_button.SetToolTip(wx.ToolTip("Ricaricare i progressi (ctrl+r)"))
         
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=search_button.GetId())
         self.Bind(wx.EVT_BUTTON, self.OnRefreshButton, id=refresh_button.GetId())
@@ -289,9 +291,9 @@ class MyFrame(wx.Frame):
         # Set up control buttons for adding and clearing database entries
         controls_box = wx.Panel(self, size=(390,50), pos=(10,450))
         add_to_db_button = wx.Button(controls_box, -1, label=insert_button_name, pos=(10,18))
-        add_to_db_button.SetToolTip(wx.ToolTip("Inserisci il vocabolario immesso nella tabella selezionata nel db"))
+        add_to_db_button.SetToolTip(wx.ToolTip("Inserisci il vocabolario immesso nella tabella selezionata nel db (ctrl+i)"))
         clear_from_db_button = wx.Button(controls_box, -1, label=clear_button_name, pos=(103,18))
-        clear_from_db_button.SetToolTip(wx.ToolTip("Impostare la percentuale di studio su null in una tabella selezionata"))
+        clear_from_db_button.SetToolTip(wx.ToolTip("Impostare la percentuale di studio su null in una tabella selezionata (ctrl+k)"))
         self.Bind(wx.EVT_BUTTON, self.AddToDbButton, id=add_to_db_button.GetId())
         self.Bind(wx.EVT_BUTTON, self.ClearDbButton, id=clear_from_db_button.GetId())
 
