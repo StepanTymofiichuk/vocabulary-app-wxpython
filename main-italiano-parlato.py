@@ -289,7 +289,9 @@ class MyFrame(wx.Frame):
         # Set up control buttons for adding and clearing database entries
         controls_box = wx.Panel(self, size=(390,50), pos=(10,450))
         add_to_db_button = wx.Button(controls_box, -1, label=insert_button_name, pos=(10,18))
+        add_to_db_button.SetToolTip(wx.ToolTip("Inserisci il vocabolario immesso nella tabella selezionata nel db"))
         clear_from_db_button = wx.Button(controls_box, -1, label=clear_button_name, pos=(103,18))
+        clear_from_db_button.SetToolTip(wx.ToolTip("Impostare la percentuale di studio su null in una tabella selezionata"))
         self.Bind(wx.EVT_BUTTON, self.AddToDbButton, id=add_to_db_button.GetId())
         self.Bind(wx.EVT_BUTTON, self.ClearDbButton, id=clear_from_db_button.GetId())
 

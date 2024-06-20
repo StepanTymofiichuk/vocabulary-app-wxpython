@@ -28,6 +28,7 @@
                 "insert_word_name": "Parola",
                 "insert_translation_name": "Traduzione",
                 "insert_button_name": "Inserire Al DB",
+                "insert_button_tooltip": "Inserisci il vocabolario immesso nella tabella selezionata nel db",
                 "insert_success_msg": "Inserito con succeso!",
                 "insert_fail_msg": "Si prega di compilare tutti i campi!"
             },
@@ -35,6 +36,7 @@
                 "clear_app_name": "Eliminari i progressi studiati",
                 "table_name": "Nomme della tabela",
                 "clear_button_name":"Azzerare",
+                "clear_button_tooltip": "Impostare la percentuale di studio su null in una tabella selezionata",
                 "clear_success_msg": "Azzerare Con Successo!",
                 "clear_fail_msg": "Si prega di compilare tutti i campi!"
             }
