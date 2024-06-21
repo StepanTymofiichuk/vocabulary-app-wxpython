@@ -140,9 +140,9 @@ class MyFrame(wx.Frame):
         global search_textCtrl
         search_textCtrl = wx.TextCtrl(search_box, value=str(len(rows)) + " "+ search_placeholder, pos=(60,18))
         search_button = wx.Button(search_box, -1, label=search_btn_name, pos=(180,18))
-        search_button.SetToolTip(wx.ToolTip("Cercare nella tabella (ctrl+s)"))
+        search_button.SetToolTip(wx.ToolTip(search_btn_tooltip))
         refresh_button = wx.Button(search_box, label=refresh_btn_name, pos=(260,18))
-        refresh_button.SetToolTip(wx.ToolTip("Ricaricare i progressi (ctrl+r)"))
+        refresh_button.SetToolTip(wx.ToolTip(refresh_btn_tooltip))
         
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=search_button.GetId())
         self.Bind(wx.EVT_BUTTON, self.OnRefreshButton, id=refresh_button.GetId())
@@ -394,7 +394,9 @@ if __name__ == "__main__":
             search_name: str = data["localization"][0]["search_name"]
             search_placeholder: str = data["localization"][0]["search_placeholder"]
             search_btn_name: str = data["localization"][0]['search_button_name']
+            search_btn_tooltip: str = data["localization"][0]["search_button_tooltip"]
             refresh_btn_name: str = data["localization"][0]['refresh_button_name']
+            refresh_btn_tooltip: str = data["localization"][0]["refresh_btn_tooltip"]
             stats_box_name1: str = data["localization"][0]["stats_box_name1"]
             stats_box_name2: str = data["localization"][0]["stats_box_name2"]
             stats_box_items_name: str = data["localization"][0]["stats_box_items_name"]
