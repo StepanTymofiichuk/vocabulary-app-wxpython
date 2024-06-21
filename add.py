@@ -75,7 +75,7 @@ class MyFrame(wx.Frame):
         self.translation_entry.SetFont(font)
         # Create text label and entry field
         self.btn_add = wx.Button(panel, -1, label=insert_button_name)
-        self.btn_add.SetToolTip(wx.ToolTip("Inserisci il vocabolario immesso nella tabella selezionata nel db"))
+        self.btn_add.SetToolTip(wx.ToolTip(insert_btn_tooltip))
         self.btn_add.SetFont(font)
         self.status = wx.StaticText(panel, label="")
         self.status.SetFont(font)
@@ -148,6 +148,7 @@ if __name__ == "__main__":
             insert_word_name: str = data["localization"][0]["insert_app"]["insert_word_name"]
             insert_translation_name: str =data["localization"][0]["insert_app"]["insert_translation_name"]
             insert_button_name: str = data["localization"][0]["insert_app"]["insert_button_name"]
+            insert_btn_tooltip: str = data["localization"][0]["insert_app"]["insert_button_tooltip"]
             insert_success_msg: str = data["localization"][0]["insert_app"]["insert_success_msg"]
             insertt_fail_msg: str = data["localization"][0]["insert_app"]["insert_fail_msg"]
             table1: str = data["table1_name"]

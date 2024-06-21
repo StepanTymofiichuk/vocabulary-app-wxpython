@@ -109,6 +109,7 @@ if __name__ == "__main__":
             db_name: str = data["db_name"]
             table_name: str = data["localization"][0]["clear_app"]["table_name"]
             clear_button_name: str = data["localization"][0]["clear_app"]["clear_button_name"]
+            clear_btn_tooltip: str = data["localization"][0]["clear_app"]["clear_button_tooltip"]
             clear_success_msg: str = data["localization"][0]["clear_app"]["clear_success_msg"]
             clear_fail_msg: str = data["localization"][0]["clear_app"]["clear_fail_msg"]
             print("Success!")
