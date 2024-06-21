@@ -291,9 +291,9 @@ class MyFrame(wx.Frame):
         # Set up control buttons for adding and clearing database entries
         controls_box = wx.Panel(self, size=(390,50), pos=(10,450))
         add_to_db_button = wx.Button(controls_box, -1, label=insert_button_name, pos=(10,18))
-        add_to_db_button.SetToolTip(wx.ToolTip("Inserisci il vocabolario immesso nella tabella selezionata nel db (ctrl+i)"))
+        add_to_db_button.SetToolTip(wx.ToolTip(insert_btn_tooltip))
         clear_from_db_button = wx.Button(controls_box, -1, label=clear_button_name, pos=(103,18))
-        clear_from_db_button.SetToolTip(wx.ToolTip("Impostare la percentuale di studio su null in una tabella selezionata (ctrl+k)"))
+        clear_from_db_button.SetToolTip(wx.ToolTip(clear_btn_tooltip))
         self.Bind(wx.EVT_BUTTON, self.AddToDbButton, id=add_to_db_button.GetId())
         self.Bind(wx.EVT_BUTTON, self.ClearDbButton, id=clear_from_db_button.GetId())
 
@@ -404,7 +404,9 @@ if __name__ == "__main__":
             db_column2_name: str = data["localization"][0]["db_column2_name"]
             db_column3_name: str = data["localization"][0]["db_column3_name"]
             insert_button_name: str = data["localization"][0]["insert_button_name"]
+            insert_btn_tooltip: str = data["localization"][0]["insert_button_tooltip"]
             clear_button_name: str = data["localization"][0]["clear_button_name"]
+            clear_btn_tooltip: str = data["localization"][0]["clear_button_tooltip"]
             test_words_filename: str = data["filenames"]["test_words_filename"]
             test_phrases_filename: str = data["filenames"]["test_phrases_filename"]
             insert_vocab_filename: str = data["filenames"]["insert_vocab_filename"]
