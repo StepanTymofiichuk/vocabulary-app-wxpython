@@ -310,16 +310,26 @@ class MyFrame(wx.Frame):
         Popen([python_bin, script_file])
 
     def OnButton(self, event):
-        # Handle the search button click event
         global search_textCtrl
         global db_listControl
-        value = search_textCtrl.GetValue()
-        query = "SELECT * FROM "+ table1 +" WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%'  UNION SELECT * FROM "+ table2 +" WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%' "
-        c.execute(query)
-        rows = c.fetchall()
-        db_listControl.DeleteAllItems()
-        for i in rows:
-            db_listControl.Append(i)
+        if table1 != "" and table2 == "":
+            # Handle the search button click event
+            value = search_textCtrl.GetValue()
+            query = "SELECT * FROM "+ table1 +" WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%'  "
+            c.execute(query)
+            rows = c.fetchall()
+            db_listControl.DeleteAllItems()
+            for i in rows:
+                db_listControl.Append(i)
+        elif table1 != "" and table2 != "":
+            # Handle the search button click event
+            value = search_textCtrl.GetValue()
+            query = "SELECT * FROM "+ table1 +" WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%'  UNION SELECT * FROM "+ table2 +" WHERE word LIKE '%" + value + "%' OR translation LIKE'%" + value + "%' "
+            c.execute(query)
+            rows = c.fetchall()
+            db_listControl.DeleteAllItems()
+            for i in rows:
+                db_listControl.Append(i)
 
     def OnRefreshButton(self, event):
         # Handle the refresh button click event to update statistics
@@ -414,7 +424,7 @@ if __name__ == "__main__":
             print("Success!")
 
         # Connect to the database and retrieve initial data
-        if table1 != "":
+        if table1 != "" and table2 == "":
             conn = sqlite3.connect(db)
             c = conn.cursor()
             query = "SELECT word, translation, studied FROM '%s'" % table1
