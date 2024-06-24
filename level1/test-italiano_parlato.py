@@ -12,6 +12,7 @@ class Test(wx.App):
         self.frame = MyFrame(None, title="Italian Test")
         self.SetTopWindow(self.frame)
         self.frame.Show()
+        self.frame.Maximize(True)
         return True
 
 class MyFrame(wx.Frame):
@@ -32,10 +33,10 @@ class MyFrame(wx.Frame):
         v_sizer = wx.BoxSizer(wx.VERTICAL)
         global main_text
         main_text = wx.StaticText(main_box, label=str(word), style=wx.ALIGN_CENTER_HORIZONTAL|wx.ELLIPSIZE_START)
-        font = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
+        font = wx.Font(wx.FontInfo(20).FaceName("Helvetica"))
         main_text.SetFont(font)
-        font1 = wx.Font(wx.FontInfo(12).FaceName("Helvetica"))
-        font2 = wx.Font(wx.FontInfo(10).FaceName("Helvetica"))
+        font1 = wx.Font(wx.FontInfo(16).FaceName("Helvetica"))
+        font2 = wx.Font(wx.FontInfo(14).FaceName("Helvetica"))
         global translate_text
         translate_text = wx.StaticText(main_box, style=wx.ALIGN_CENTER_HORIZONTAL|wx.ELLIPSIZE_START)
         translate_text.SetFont(font1)
