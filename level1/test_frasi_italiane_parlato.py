@@ -165,21 +165,22 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, lambda evt, a=a-1: self.OnButton1(evt, a), id=prev_button.GetId())
         self.Bind(wx.EVT_BUTTON, lambda evt, s=s[1]: self.OnButton2(evt, s), id=check_btn.GetId())
 
-        randId = wx.NewIdRef()
-        randId1 = wx.NewIdRef()
-        randId2 = wx.NewIdRef()
-        randId3 = wx.NewIdRef()
-        accel_tbl = wx.AcceleratorTable([
-            (wx.ACCEL_CTRL,  ord('J'), randId ),
-            (wx.ACCEL_CTRL,  ord('K'), randId1 ),
-            (wx.ACCEL_CTRL,  ord('L'), randId2 ),
-            (wx.ACCEL_CTRL,  ord('H'), randId3 ),
-        ])
-        self.SetAcceleratorTable(accel_tbl)
-        self.Bind(wx.EVT_MENU, self.OnButton3, id=randId)
-        self.Bind(wx.EVT_MENU, lambda evt, s=s[1]: self.OnButton2(evt, s), id=randId1)
-        self.Bind(wx.EVT_MENU, lambda evt, a=a+1: self.OnButton(evt, a), id=randId2)
-        self.Bind(wx.EVT_MENU, lambda evt, a=a-1: self.OnButton1(evt, a), id=randId3)
+        if a < len(rows):
+            randId = wx.NewIdRef()
+            randId1 = wx.NewIdRef()
+            randId2 = wx.NewIdRef()
+            randId3 = wx.NewIdRef()
+            accel_tbl = wx.AcceleratorTable([
+                (wx.ACCEL_CTRL,  ord('J'), randId ),
+                (wx.ACCEL_CTRL,  ord('K'), randId1 ),
+                (wx.ACCEL_CTRL,  ord('L'), randId2 ),
+                (wx.ACCEL_CTRL,  ord('H'), randId3 ),
+            ])
+            self.SetAcceleratorTable(accel_tbl)
+            self.Bind(wx.EVT_MENU, self.OnButton3, id=randId)
+            self.Bind(wx.EVT_MENU, lambda evt, s=s[1]: self.OnButton2(evt, s), id=randId1)
+            self.Bind(wx.EVT_MENU, lambda evt, a=a+1: self.OnButton(evt, a), id=randId2)
+            self.Bind(wx.EVT_MENU, lambda evt, a=a-1: self.OnButton1(evt, a), id=randId3)
         
         #print(w[0], s[1])
 

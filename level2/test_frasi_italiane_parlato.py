@@ -180,8 +180,6 @@ class MyFrame(wx.Frame):
             self.Bind(wx.EVT_MENU, lambda evt, s=s[1]: self.OnButton2(evt, s), id=randId1)
             self.Bind(wx.EVT_MENU, lambda evt, a=a+1: self.OnButton(evt, a), id=randId2)
             self.Bind(wx.EVT_MENU, lambda evt, a=a-1: self.OnButton1(evt, a), id=randId3)
-        else:
-            print("No more words")
 
         #print(w[0], s[1])
 
