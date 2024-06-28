@@ -277,15 +277,59 @@ class MyFrame(wx.Frame):
             db_listControl.Append(item)
         db_listControl.Bind(wx.EVT_LIST_END_LABEL_EDIT, self.OnUpdate)
 
-    def OnUpdate(self, event):
-        row_id = event.GetIndex() #Get the current row
-        col_id = event.GetColumn () #Get the current column
-        new_data = event.GetLabel() #Get the changed data
-        cols = db_listControl.GetColumnCount() #Get the total number of columns
-        rows = db_listControl.GetItemCount() #Get the total number of rows
+    def OnUpdate(self, event) -> None:
+        row_id: int = event.GetIndex() #Get the current row
+        col_id: int = event.GetColumn () #Get the current column
+        new_data: str = event.GetLabel() #Get the changed data
+        old_data: str = db_listControl.GetItem(row_id, col_id).GetText()
+        
+        print(f"Column id: {col_id}")
+        print(f"Row id: {old_data}")
+        print(f"Old data: {old_data}")
+        print(f"Old data: {new_data}")
 
-        #Get the changed item use the row_id and iterate over the columns
-        print("Changed Item:", new_data, "Column:", col_id)
+        # Connect to the SQLite database
+        conn = sqlite3.connect(db)
+        cursor = conn.cursor()
+        
+        # Get all table names
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+        tables = cursor.fetchall()
+        
+        # Iterate over each table and search for the value
+
+        found_in_tables: list = []
+        for table in tables:
+            table_name = table[0]
+            cursor.execute(f"PRAGMA table_info({table_name});")
+            columns = cursor.fetchall()
+            
+            for column in columns:
+                column_name = column[1]
+                query = f"SELECT 1 FROM {table_name} WHERE {column_name} = ? LIMIT 1;"
+                cursor.execute(query, (old_data,))
+                if cursor.fetchone() is not None:
+                    found_in_tables.append((table_name, column_name))
+
+        print(found_in_tables)
+        db_table_name: str = found_in_tables[0][0]
+        db_column_name: str = found_in_tables[0][1]
+        
+        if col_id == 0:
+            upd_query:str = "UPDATE '%s' SET '%s'='%s' WHERE word='%s'" % (db_table_name, db_column_name, new_data, old_data)
+            cursor.execute(upd_query)
+            conn.commit()
+        elif col_id == 1:
+            upd_query:str = "UPDATE '%s' SET '%s'='%s' WHERE translation='%s'" % (db_table_name, db_column_name, new_data, old_data)
+            cursor.execute(upd_query)
+            conn.commit()
+        elif col_id == 2:
+            upd_query:str = "UPDATE '%s' SET '%s'='%s' WHERE studied='%s'" % (db_table_name, db_column_name, new_data, old_data)
+            cursor.execute(upd_query)
+            conn.commit()
+
+        # Close the connection
+        conn.close()
 
     def Controls(self):
         # Set up control buttons for adding and clearing database entries
