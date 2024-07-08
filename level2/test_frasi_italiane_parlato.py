@@ -3,11 +3,12 @@ import pathlib
 import sqlite3
 from random import shuffle
 import winsound
+import json
 
 class Test(wx.App):
 
     def OnInit(self):
-        self.frame = MyFrame(None, title="Italian Test")
+        self.frame = MyFrame(None, title=f"{app_name_phrases} Lvl 2")
         self.SetTopWindow(self.frame)
         self.frame.Show()
         self.frame.Maximize(True)
@@ -73,25 +74,29 @@ class MyFrame(wx.Frame):
         status_text = wx.StaticText(main_box,style=wx.ALIGN_CENTER_HORIZONTAL|wx.ELLIPSIZE_START)
         status_text.SetFont(font1)
 
-        score_label = wx.StaticText(main_box, label="Punteggio:")
+        score_label = wx.StaticText(main_box, label=score_label_name)
         score_label.SetFont(font2)
-        total_studied_label = wx.StaticText(main_box, label="Parola studiata:")
+        total_studied_label = wx.StaticText(main_box, label=total_studied_label_name)
         total_studied_label.SetFont(font2)
-        total_words_label = wx.StaticText(main_box, label="Parole totali:")
+        total_words_label = wx.StaticText(main_box, label=total_words_label_name)
         total_words_label.SetFont(font2)
-        total_words_studied_label = wx.StaticText(main_box, label="Parole totali studiate:")
+        total_words_studied_label = wx.StaticText(main_box, label=total_studied_label_name)
         total_words_studied_label.SetFont(font2)
         
         
         global prev_button
         prev_button = wx.Button(main_box, -1, label="<<")
+        prev_button.SetToolTip(prev_button_tooltip)
         prev_button.Disable()
         global check_btn
-        check_btn = wx.Button(main_box, -1, label="Controllare")
+        check_btn = wx.Button(main_box, -1, label=check_button_name)
+        check_btn.SetToolTip(check_button_tooltip)
         check_btn.Enable()
-        translate_btn = wx.Button(main_box, -1, label="Tradurre")
+        translate_btn = wx.Button(main_box, -1, label=translate_button_name)
+        translate_btn.SetToolTip(translate_button_tooltip)
         global next_button
         next_button = wx.Button(main_box, -1, label=">>")
+        next_button.SetToolTip(next_button_tooltip)
         prev_button.SetFont(font)
         check_btn.SetFont(font)
         translate_btn.SetFont(font)
@@ -300,13 +305,34 @@ class MyFrame(wx.Frame):
 
 if __name__ == "__main__":
     try:
+        try:
+            with open('config.json', 'r') as file:
+                data = json.load(file)
+                db_name: str = data["db_name"]
+                table2_name: str = data["table2_name"]
+                app_name_phrases: str = data["localization"][0]["test_app"]["app_name_phrases"]
+                check_button_name: str = data["localization"][0]["test_app"]["check_button_name"]
+                translate_button_name: str = data["localization"][0]["test_app"]["translate_button_name"]
+                correct_answer_label: str = data["localization"][0]["test_app"]["correct_answer_label"]
+                incorrect_answer_label: str = data["localization"][0]["test_app"]["incorrect_answer_label"]
+                score_label_name: str = data["localization"][0]["test_app"]["score_label_name"]
+                total_studied_label_name: str = data["localization"][0]["test_app"]["total_studied_label_name"]
+                total_words_label_name: str = data["localization"][0]["test_app"]["total_words_label_name"]
+                total_words_studied_label_name: str = data["localization"][0]["test_app"]["total_words_studied_label_name"]
+                next_button_tooltip: str = data["localization"][0]["test_app"]["next_button_tooltip"]
+                prev_button_tooltip: str = data["localization"][0]["test_app"]["prev_button_tooltip"]
+                check_button_tooltip: str = data["localization"][0]["test_app"]["check_button_tooltip"]
+                translate_button_tooltip: str = data["localization"][0]["test_app"]["translate_button_tooltip"]
+                print("Success!")
+        except:
+            print("config.json file not found, please add the file!")
         directory = pathlib.Path().resolve()
         print(directory)
-        db = str(directory) + "\\ItalianStudent.db"
+        db = str(directory) + "\\" + db_name
         conn = sqlite3.connect(db)
         c = conn.cursor()
         c1 = conn.cursor()
-        table_name = "frasi_italiane_parlato" 
+        table_name = table2_name
         query = "SELECT word, studied FROM '%s' WHERE studied BETWEEN 20 AND 40 ORDER BY random()" % table_name
         select_avg_query = "SELECT AVG(studied) FROM '%s' " % table_name
         c.execute(query)

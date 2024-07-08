@@ -3,11 +3,12 @@ import pathlib
 import sqlite3
 from random import shuffle
 import winsound
+import json
 
 class Test(wx.App):
 
     def OnInit(self):
-        self.frame = MyFrame(None, title="Italian Test")
+        self.frame = MyFrame(None, title=f"{app_name_words} Lvl 2")
         self.SetTopWindow(self.frame)
         self.frame.Show()
         self.frame.Maximize(True)
@@ -85,13 +86,17 @@ class MyFrame(wx.Frame):
         
         global prev_button
         prev_button = wx.Button(main_box, -1, label="<<")
+        prev_button.SetToolTip(prev_button_tooltip)
         prev_button.Disable()
         global check_btn
-        check_btn = wx.Button(main_box, -1, label="Controllare")
+        check_btn = wx.Button(main_box, -1, label=check_button_name)
+        check_btn.SetToolTip(check_button_tooltip)
         check_btn.Enable()
-        translate_btn = wx.Button(main_box, -1, label="Tradurre")
+        translate_btn = wx.Button(main_box, -1, label=translate_button_name)
+        translate_btn.SetToolTip(translate_button_tooltip)
         global next_button
         next_button = wx.Button(main_box, -1, label=">>")
+        next_button.SetToolTip(next_button_tooltip)
         prev_button.SetFont(font)
         check_btn.SetFont(font)
         translate_btn.SetFont(font)
@@ -244,7 +249,7 @@ class MyFrame(wx.Frame):
         row = result[0][0]
         if value == row :
             translate_textCtrl.Clear()
-            status_text.SetLabel("Giiusto")
+            status_text.SetLabel(correct_answer_label)
             status_text.SetForegroundColour("GREEN")
             studied_add = int(s) + 20
             studied.SetLabel(str(studied_add) + "%")
@@ -259,7 +264,7 @@ class MyFrame(wx.Frame):
         elif value != row and count > 0:
             translate_textCtrl.Clear()
             check_btn.Disable()
-            status_text.SetLabel("Sbagliato")
+            status_text.SetLabel(incorrect_answer_label)
             status_text.SetForegroundColour("RED")
             count -=1
             score_text.SetLabel(str(count) + "p.")
@@ -270,7 +275,7 @@ class MyFrame(wx.Frame):
         elif value != row and count == 0:
             translate_textCtrl.Clear()
             check_btn.Disable()
-            status_text.SetLabel("Sbagliato")
+            status_text.SetLabel(incorrect_answer_label)
             status_text.SetForegroundColour("RED")
             score_text.SetLabel("0p.")
             winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
@@ -295,13 +300,34 @@ class MyFrame(wx.Frame):
 
 if __name__ == "__main__":
     try:
+        try:
+            with open('config.json', 'r') as file:
+                data = json.load(file)
+                db_name: str = data["db_name"]
+                table1_name: str = data["table1_name"]
+                app_name_words: str = data["localization"][0]["test_app"]["app_name_words"]
+                check_button_name: str = data["localization"][0]["test_app"]["check_button_name"]
+                translate_button_name: str = data["localization"][0]["test_app"]["translate_button_name"]
+                correct_answer_label: str = data["localization"][0]["test_app"]["correct_answer_label"]
+                incorrect_answer_label: str = data["localization"][0]["test_app"]["incorrect_answer_label"]
+                score_label_name: str = data["localization"][0]["test_app"]["score_label_name"]
+                total_studied_label_name: str = data["localization"][0]["test_app"]["total_studied_label_name"]
+                total_words_label_name: str = data["localization"][0]["test_app"]["total_words_label_name"]
+                total_words_studied_label_name: str = data["localization"][0]["test_app"]["total_words_studied_label_name"]
+                next_button_tooltip: str = data["localization"][0]["test_app"]["next_button_tooltip"]
+                prev_button_tooltip: str = data["localization"][0]["test_app"]["prev_button_tooltip"]
+                check_button_tooltip: str = data["localization"][0]["test_app"]["check_button_tooltip"]
+                translate_button_tooltip: str = data["localization"][0]["test_app"]["translate_button_tooltip"]
+                print("Success!")
+        except:
+            print("config.json file not found, please add the file!")
         directory = pathlib.Path().resolve()
         print(directory)
-        db = str(directory) + "\\ItalianStudent.db"
+        db = str(directory) + "\\" + db_name
         conn = sqlite3.connect(db)
         c = conn.cursor()
         c1 = conn.cursor()
-        table_name = "italiano_parlato" 
+        table_name = table1_name
         query = "SELECT word, studied FROM '%s' WHERE studied BETWEEN 20 AND 40 ORDER BY random()" % table_name
         select_avg_query = "SELECT AVG(studied) FROM '%s' " % table_name
         c.execute(query)
