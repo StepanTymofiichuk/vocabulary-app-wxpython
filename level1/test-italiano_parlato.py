@@ -23,7 +23,7 @@ class MyFrame(wx.Frame):
 
         global count
         count = 0
-        print(count)
+        #print(count)
         
 
         #Attributes
@@ -102,8 +102,10 @@ class MyFrame(wx.Frame):
         prev_button.SetFont(font)
         check_btn.SetFont(font)
         translate_btn.SetFont(font)
-
         next_button.SetFont(font)
+
+        if len(rows) == 1:
+            next_button.Disable()
 
         self.Bind(wx.EVT_BUTTON, lambda evt, a=2: self.OnButton1(evt, a), id=prev_button.GetId())
         self.Bind(wx.EVT_BUTTON, lambda evt, s=studied_number: self.OnButton2(evt, s), id=check_btn.GetId())
