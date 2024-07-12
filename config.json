@@ -51,7 +51,7 @@
                 "prev_button_tooltip": "CTRL+H",
                 "check_button_name": "Controllare",
                 "check_button_tooltip": "CTRL+K",
-                "check_button_error": "il pulsante è già premuto",
+                "check_button_error": "non possibile attivare il pulsante",
                 "translate_button_name": "Tradurre",
                 "translate_button_tooltip": "CTRL+J",
                 "correct_answer_label": "Giusto",
