@@ -286,7 +286,7 @@ class MyFrame(wx.Frame):
         print(f"Column id: {col_id}")
         print(f"Row id: {old_data}")
         print(f"Old data: {old_data}")
-        print(f"Old data: {new_data}")
+        print(f"New data: {new_data}")
 
         # Connect to the SQLite database
         conn = sqlite3.connect(db)
