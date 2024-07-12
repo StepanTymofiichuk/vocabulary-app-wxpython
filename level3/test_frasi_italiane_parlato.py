@@ -20,6 +20,7 @@ class MyFrame(wx.Frame):
         super(MyFrame, self).__init__(*args, **kw)
 
         global count
+        self.set_enabled: bool = True
         count = 0
         #print(count)
         
@@ -121,7 +122,11 @@ class MyFrame(wx.Frame):
         self.SetAcceleratorTable(accel_tbl)
 
         self.Bind(wx.EVT_MENU, self.OnButton3, id=randId)
-        self.Bind(wx.EVT_MENU, lambda evt, s=studied_number: self.OnButton2(evt, s), id=randId1)
+        if self.set_enabled:
+            self.Bind(wx.EVT_MENU, lambda evt, s=studied_number: self.OnButton2(evt, s), id=randId1)
+        else:
+            #print(self.set_enabled)
+            pass
         self.Bind(wx.EVT_MENU, lambda evt, a=2: self.OnButton(evt, a), id=randId2)
 
         h_sizer.Add(prev_button,1,0,0)
@@ -155,6 +160,9 @@ class MyFrame(wx.Frame):
         global prev_button
         global check_btn
 
+        self.set_enabled = True
+        #print(self.set_enabled)
+
         if a == len(rows):
             next_button.Disable()
 
@@ -184,7 +192,11 @@ class MyFrame(wx.Frame):
             ])
             self.SetAcceleratorTable(accel_tbl)
             self.Bind(wx.EVT_MENU, self.OnButton3, id=randId)
-            self.Bind(wx.EVT_MENU, lambda evt, s=s[1]: self.OnButton2(evt, s), id=randId1)
+            if self.set_enabled:
+                self.Bind(wx.EVT_MENU, lambda evt, s=s[1]: self.OnButton2(evt, s), id=randId1)
+            else:
+                #print(self.set_enabled)
+                pass
             self.Bind(wx.EVT_MENU, lambda evt, a=a+1: self.OnButton(evt, a), id=randId2)
             self.Bind(wx.EVT_MENU, lambda evt, a=a-1: self.OnButton1(evt, a), id=randId3)
 
@@ -226,63 +238,75 @@ class MyFrame(wx.Frame):
         global status_text
         global check_btn
 
-        def update_studied(studied_add, row):
-            convert_studied_add = str(studied_add)
-            try:
-                conn1 = sqlite3.connect(db)
-                c1 = conn1.cursor()
-                update_query = "UPDATE '%s' SET studied='%s' WHERE translation='%s' " % (table_name, convert_studied_add, row)
-                c1.execute(update_query)
-                conn1.commit()
-            except sqlite3.Error as error:
-                print("Failed to update sqlite table", error)
-            finally:
-                if conn1:
-                    conn1.close()
-                    #print("The sqlite connection is closed")
-            #print(update_query)
+        if self.set_enabled:
+                                                                                                                                                            
+            def update_studied(studied_add, row):
+                convert_studied_add = str(studied_add)
+                try:
+                    conn1 = sqlite3.connect(db)
+                    c1 = conn1.cursor()
+                    update_query = "UPDATE '%s' SET studied='%s' WHERE translation='%s' " % (table_name, convert_studied_add, row)
+                    c1.execute(update_query)
+                    conn1.commit()
+                except sqlite3.Error as error:
+                    print("Failed to update sqlite table", error)
+                finally:
+                    if conn1:
+                        conn1.close()
+                        #print("The sqlite connection is closed")
+                #print(update_query)
 
-        correct = main_text.GetLabel()
-        value = translate_textCtrl.GetValue()
-        correct = str(correct)
-        query = "SELECT translation FROM '%s' WHERE word='%s' " % (table_name, correct)
-        result = c.execute(query)
-        result = c.fetchall()
-        row = result[0][0]
-        if value == row :
-            translate_textCtrl.Clear()
-            status_text.SetLabel(correct_answer_label)
-            status_text.SetForegroundColour("GREEN")
-            studied_add = int(s) + 20
-            studied.SetLabel(str(studied_add) + "%")
-            update_studied(studied_add, row)
-            count +=1
-            score_text.SetLabel(str(count) + "p.")
-            check_btn.Disable()
-            try:
-                winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
-            except:
-                print("Sound file not found")
-        elif value != row and count > 0:
-            translate_textCtrl.Clear()
-            check_btn.Disable()
-            status_text.SetLabel(incorrect_answer_label)
-            status_text.SetForegroundColour("RED")
-            count -=1
-            score_text.SetLabel(str(count) + "p.")
-            try:
+            correct = main_text.GetLabel()
+            value = translate_textCtrl.GetValue()
+            correct = str(correct)
+            query = "SELECT translation FROM '%s' WHERE word='%s' " % (table_name, correct)
+            result = c.execute(query)
+            result = c.fetchall()
+            row = result[0][0]
+            if value == row :
+                translate_textCtrl.Clear()
+                status_text.SetLabel(correct_answer_label)
+                status_text.SetForegroundColour("GREEN")
+                studied_add = int(s) + 20
+                studied.SetLabel(str(studied_add) + "%")
+                update_studied(studied_add, row)
+                count +=1
+                score_text.SetLabel(str(count) + "p.")
+                check_btn.Disable()
+                try:
+                    winsound.PlaySound("sounds/true.wav", winsound.SND_FILENAME)
+                except:
+                    print("Sound file not found")
+            elif value != row and count > 0:
+                translate_textCtrl.Clear()
+                check_btn.Disable()
+                status_text.SetLabel(incorrect_answer_label)
+                status_text.SetForegroundColour("RED")
+                count -=1
+                score_text.SetLabel(str(count) + "p.")
+                try:
+                    winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+                except:
+                    print("Sound file not found")
+            elif value != row and count == 0:
+                translate_textCtrl.Clear()
+                check_btn.Disable()
+                status_text.SetLabel(incorrect_answer_label)
+                status_text.SetForegroundColour("RED")
+                score_text.SetLabel("0p.")
                 winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
+
+            #print(count)
+        else:
+            print(self.set_enabled)
+            status_text.SetLabel(check_button_error)
+            try:
+                winsound.PlaySound("sounds/button-clicked.wav", winsound.SND_FILENAME)
             except:
                 print("Sound file not found")
-        elif value != row and count == 0:
-            translate_textCtrl.Clear()
-            check_btn.Disable()
-            status_text.SetLabel(incorrect_answer_label)
-            status_text.SetForegroundColour("RED")
-            score_text.SetLabel("0p.")
-            winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
-
-        #print(count)
+            status_text.SetLabel("")
+        self.set_enabled = False
+        #print(self.set_enabled)
 
     def OnButton3(self, event) -> None:
         global main_text
@@ -319,6 +343,7 @@ if __name__ == "__main__":
                 next_button_tooltip: str = data["localization"][0]["test_app"]["next_button_tooltip"]
                 prev_button_tooltip: str = data["localization"][0]["test_app"]["prev_button_tooltip"]
                 check_button_tooltip: str = data["localization"][0]["test_app"]["check_button_tooltip"]
+                check_button_error: str = data["localization"][0]["test_app"]["check_button_error"]
                 translate_button_tooltip: str = data["localization"][0]["test_app"]["translate_button_tooltip"]
                 print("Success!")
         except:
