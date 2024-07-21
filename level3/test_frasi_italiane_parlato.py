@@ -282,6 +282,9 @@ class MyFrame(wx.Frame):
                 check_btn.Disable()
                 status_text.SetLabel(incorrect_answer_label)
                 status_text.SetForegroundColour("RED")
+                studied_add = int(s) - 20
+                studied.SetLabel(str(studied_add) + "%")
+                update_studied(studied_add, row)
                 count -=1
                 score_text.SetLabel(str(count) + "p.")
                 try:
@@ -293,6 +296,9 @@ class MyFrame(wx.Frame):
                 check_btn.Disable()
                 status_text.SetLabel(incorrect_answer_label)
                 status_text.SetForegroundColour("RED")
+                studied_add = int(s) - 20
+                studied.SetLabel(str(studied_add) + "%")
+                update_studied(studied_add, row)
                 score_text.SetLabel("0p.")
                 winsound.PlaySound("sounds/false.wav", winsound.SND_FILENAME)
 
