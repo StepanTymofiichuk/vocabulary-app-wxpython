@@ -152,11 +152,14 @@ class MyFrame(wx.Frame):
         randId1 = wx.NewIdRef()
         randId2 = wx.NewIdRef()
         randId3 = wx.NewIdRef()
+        randId4 = wx.NewIdRef()
+
         accel_tbl = wx.AcceleratorTable([
             (wx.ACCEL_CTRL,  ord('S'), randId ),
             (wx.ACCEL_CTRL,  ord('R'), randId1 ),
             (wx.ACCEL_CTRL,  ord('I'), randId2 ),
             (wx.ACCEL_CTRL,  ord('K'), randId3 ),
+            (wx.ACCEL_CTRL,  ord('Q'), randId4 ),
         ])
         self.SetAcceleratorTable(accel_tbl)
         # Bind the keyboard shortcut to the button event
@@ -164,6 +167,7 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnRefreshButton, id=randId1)
         self.Bind(wx.EVT_MENU, self.AddToDbButton, id=randId2)
         self.Bind(wx.EVT_MENU, self.ClearDbButton, id=randId3)
+        self.Bind(wx.EVT_MENU, self.onExit, id=randId4)
 
     def Stats(self):
         if table1 != "" and table2 == "":

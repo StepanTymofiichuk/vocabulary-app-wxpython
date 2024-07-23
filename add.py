@@ -102,13 +102,19 @@ class MyFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.OnButton, id=self.btn_add.GetId())
 
         randId = wx.NewIdRef()
+        randId1 = wx.NewIdRef()
         # Create an AcceleratorTable
         accel_tbl = wx.AcceleratorTable([
             (wx.ACCEL_CTRL,  ord('I'), randId ),
+            (wx.ACCEL_CTRL,  ord('q'), randId1 )
         ])
         self.SetAcceleratorTable(accel_tbl)
         # Bind the keyboard shortcut to the button event
         self.Bind(wx.EVT_MENU, self.OnButton, id=randId)
+        self.Bind(wx.EVT_MENU, self.OnExit, id=randId1)
+
+    def OnExit(self, event):
+        self.Close()
 
     def OnButton(self, event):
         # Handle button click event
