@@ -3,8 +3,12 @@
 # User Documentation for Italian Test Application
 
 ## Introduction
-The Italian Test application is designed to help users practice and test their knowledge of Italian vocabulary. The application presents users with Italian words and requires them to input the corresponding English translation. Users receive feedback on their responses and can track their progress throughout the test 
+The Italian Test application is designed to help users practice and test their knowledge of Italian vocabulary. The application presents users with Italian words and requires them to input the corresponding English translation. Users receive feedback on their responses and can track their progress throughout the test.
 
+## Inspiration
+Two years ago, I started learning Italian with a set of 500 flashcards. After mastering them, I decided to create a desktop app to help reinforce my vocabulary. This app allows users to enter words or phrases and track their progress through three levels of mastery. Each level challenges the user to correctly translate and write the words in Italian, helping them move from basic recognition to full mastery. I update the app weekly with 30 new words or phrases, making it a consistent tool for language practice. 
+
+## Technical Details
 The program is developed using the following technologies:
 <table>
     <tr>
@@ -16,7 +20,7 @@ The program is developed using the following technologies:
         <td><code>sqlite3</code></td>
     <tr>
 </table>
-<code>wxpython</code> is used for building User Interface. <code>sqlite3</code> is used for storing vocabulary.
+<code>wxpython</code> is used for building User Interface. <code>sqlite3</code> is used as a database for storing vocabulary.
 
 ## Getting Started
 To run the Italian Test application, follow these steps:
@@ -51,7 +55,7 @@ To run the Italian Test application, follow these steps:
    ```
 7. Run the script using a Python interpreter.
    ```bash
-   python test-calendario.py
+   python main-italiano-parlato.py
    ```
 ## Application Interface
 Upon launching the application, you will be presented with the main window, which includes the following components:
@@ -118,7 +122,7 @@ Upon launching the application, you will be presented with the main window, whic
 - **Add Button:** Click to insert new vocabulary into a table.
 ## Logic
 1. User enters db name to add new vocabulary.
-2. User enters a English word.
+2. User enters an English word.
 3. User enters Italian translation.
 4. User clicks Add then new vocabulary will be inserted into a table with 0% studied; sound from <code>sounds/true.wac</code> will play; success message will display; button Add will be disabled.
 5. If one of the fields is empty then sound from <code>sounds/false.wav</code> will play; error message will display.
