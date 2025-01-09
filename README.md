@@ -45,26 +45,55 @@ To run the Italian Test application, follow these steps:
    ```
 5. Activate virtual environment (Windows):
    ```bash
-   .venv\scripts\activate
+   .venv\Scripts\activate
    ```
-   For <code>bash</code> terminal use:
+   For <code>bash</code> terminal use (Linux):
    ```bash
-   source .venv/Scripts/activate
+   source .venv/bin/activate
    ```
 6. Install the required libraries by running the following command in your terminal:
    ```bash
-   pip install -r requuirements.txt
+   pip install -r requirements.txt
    ```
 7. Run the script using a Python interpreter.
    ```bash
    python main-italiano-parlato.py
    ```
+To make standalone Italian Test application executable, pleaase follow these steps:
+
+1. Activate virtual environment (Windows):
+   ```bash
+   .venv\Scripts\activate
+   ```
+   For <code>bash</code> terminal use (Linux):
+   ```bash
+   source .venv/bin/activate
+   ```
+2. Check for <code>pyinstaller</code> package:
+   ```bash
+   pip list
+   ``` 
+   If there is no <code>pyinstaller</code> package, run the following command:
+   ```bash
+   pip install pyinstaller
+   ```
+3. To make <code>.exe</code> run this command:
+   ```bash
+   pyinstaller main-italiano-parlato.py logo=icon.png
+   ```
+To launch application main interface:
+1. Copy <code>config.json</code> then paste into <code>dist/main-italiano-parlato</code> folder, then do the same with <code>add.py</code> and <code>clear.py</code>, <code>icon.png</code> and <code>.db</code> files
+2. Open <code>dist/main-italiano-parlato</code> then launch <code>.exe</code> file
+
+To launch level 1-3 applications from main interface:
+1. Copy <code>level1</code> folder then paste into <code>dist/main-italiano-parlato</code> folder, then do the same with <code>level2</code> and <code>level3</code> folders
+
 ## Application Interface
 Upon launching the application, you will be presented with the main window, which includes the following components:
 
 ![Italian Test Application main interface](/screens/screen1.png "Italian Test Application Screen 1")
 
-- **English Word Display:** The Italian word to be translated is displayed at the top of the window.
+- **Ukrainian Word Display:** The Italian word to be translated is displayed at the top of the window.
 - **Translation Input:** Enter your English translation in the text box provided.
 - **Navigation Buttons:** Use the "<<," "Check," "Translate," and ">>" buttons to navigate through the test and check your answers.
 - **Feedback Area:** Receive feedback on the correctness of your translations in the status area.
