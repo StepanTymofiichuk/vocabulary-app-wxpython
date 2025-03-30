@@ -5,6 +5,8 @@
 ## Introduction
 The Italian Test application helps practice and test Italian vocabulary. The application presents a  word in one language and requires to input the corresponding translation in another language. Throughout the test, you will receive feedback on your responses and your progress.
 
+![Quick Start Guide](https://youtu.be/UOVphyAC6cg)
+
 ![Quick Start Guide](https://github.com/StepanTymofiichuk/vocabulary-app-wxpython/blob/main/il_Testo_Del_%20Vocabulario.gif)
 
 ## Inspiration
