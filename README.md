@@ -7,8 +7,6 @@ The Italian Test application helps practice and test Italian vocabulary. The app
 
 ![Quick Start Guide](https://youtu.be/UOVphyAC6cg)
 
-![Quick Start Guide](https://github.com/StepanTymofiichuk/vocabulary-app-wxpython/blob/main/il_Testo_Del_%20Vocabulario.gif)
-
 ## Inspiration
 Two years ago, I started learning Italian with a set of 500 flashcards. After mastering them, I decided to create a desktop app to help reinforce my vocabulary. This app allows users to enter words or phrases and track their progress through three levels of mastery. Each level challenges the user to correctly translate and write the words in Italian, helping them move from basic recognition to full mastery. I update the app weekly with 30 new words or phrases, making it a consistent tool for language practice. 
 
